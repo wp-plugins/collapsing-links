@@ -158,7 +158,7 @@ if (function_exists('collapsLink')) {
 
  if ( -1 == $number ) {
     /* default options go here */
-    $title = '';
+    $title = 'Blogroll';
     $text = '';
     $showLinkCount = 'no';
     $catSort = 'linkName';
