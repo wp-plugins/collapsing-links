@@ -1,6 +1,6 @@
 <?php
 /*
-Collapsing Links version: 0.1.1
+Collapsing Links version: 0.1.2
 Copyright 2007 Robert Felty
 
 This work is largely based on the Collapsing Links plugin by Andrew Rader
@@ -34,19 +34,26 @@ function list_links($number) {
 
   $options=get_option('collapsLinkOptions');
   extract($options[$number]);
+  //$exclude=$exclude;
   if ($expand==1) {
     $expandSym='+';
-    $collapseSym='&mdash;';
+    $collapseSym='—';
   } elseif ($expand==2) {
     $expandSym='[+]';
-    $collapseSym='[&mdash;]';
+    $collapseSym='[—]';
+  } elseif ($expand==3) {
+    $expandSym="<img src='". get_settings('siteurl') .
+         "/wp-content/plugins/collapsing-archives/" . 
+         "img/expand.gif' alt='expand' />";
+    $collapseSym="<img src='". get_settings('siteurl') .
+         "/wp-content/plugins/collapsing-archives/" . 
+         "img/collapse.gif' alt='collapse' />";
   } else {
-    $expandSym='&#9658;';
-    $collapseSym='&#9660;';
+    $expandSym='►';
+    $collapseSym='▼';
   }
-  //$exclude=$exclude;
 	$inExclusions = '';
-	if ( !empty($inExclude) ) {
+	if ( !empty($inExcludeCats) ) {
 		$exterms = preg_split('/[,]+/',$inExcludeCats);
     if ($inExclude=='include') {
       $in='IN';
@@ -64,7 +71,7 @@ function list_links($number) {
 		}
 	}
 	if ( empty($inExclusions) ) {
-		$inExcludeQuery = "''";
+		$inExcludeQuery = "";
   } else {
     $inExcludeQuery ="AND $wpdb->terms.name $in ($inExclusions)";
   }
@@ -118,8 +125,8 @@ function list_links($number) {
 			$wpdb->term_taxonomy.parent, $wpdb->term_taxonomy.description FROM
 			$wpdb->terms, $wpdb->term_taxonomy WHERE $wpdb->terms.term_id =
 			$wpdb->term_taxonomy.term_id  AND
-			$wpdb->term_taxonomy.taxonomy = 'link_category' $inExcludeQuery $catSortColumn
-			$catSortOrder";
+			$wpdb->term_taxonomy.taxonomy = 'link_category' $inExcludeQuery
+      $catSortColumn $catSortOrder";
  $linkquery="SELECT * FROM $wpdb->links l inner join $wpdb->term_relationships tr on l.link_id = tr.object_id inner join $wpdb->term_taxonomy tt on tt.term_taxonomy_id = tr.term_taxonomy_id inner join $wpdb->terms t on t.term_id = tt.term_id WHERE tt.taxonomy='link_category' AND l.link_visible='Y' $linkSortColumn $linkSortOrder";
   }
     /* changing to use only one query 
@@ -135,6 +142,7 @@ function list_links($number) {
   }
 /*
   echo "<pre>";
+  echo "$catquery";
   print_r($cats);
   print_r($links);
   echo "</pre>";
@@ -159,9 +167,9 @@ function list_links($number) {
     $theCount=$cat->count;
     if ($theCount>0) {
         if ($expanded=='inline') {
-          print( "      <li class='collapsLink'><span class='collapsLink hide' onclick='expandLink(event,$expand); return false'>$collapseSym</span> " );
+          print( "      <li class='collapsLink'><span class='collapsLink hide' onclick='expandLink(event,$expand,$animate); return false'><span class='sym'>$collapseSym</span></span> " );
         } else {
-          print( "      <li class='collapsLink'><span class='collapsLink show' onclick='expandLink(event,$expand); return false'>$expandSym</span> " );
+          print( "      <li class='collapsLink'><span class='collapsLink show' onclick='expandLink(event,$expand,$animate); return false'><span class='sym'>$expandSym</span></span> " );
         }
       if( $showLinkCount=='yes') {
         if ($taxonomy==true) {

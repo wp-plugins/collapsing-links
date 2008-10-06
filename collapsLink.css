@@ -1,5 +1,5 @@
 /*
-collapsLink Links version: 0.1.1
+collapsLink Links version: 0.1.2
 Copyright 2007 Robert Felty
 
 This work is largely based on the Fancy Links plugin by Andrew Rader
@@ -37,3 +37,6 @@ font-size:1.3em;
              text-indent:-1em;
              margin:0 0 0 1em;}
 #sidebar li.collapsLinkPost:before {content: "\00BB \00A0" !important;} 
+.sym {font-family:monospace;
+      font-size:1.5em;
+      padding-right:5px;}

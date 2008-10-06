@@ -136,20 +136,18 @@ if (function_exists('collapsLink')) {
         $linkSort= '' ;
         $linkSortOrder= '' ;
       }
-      if($widget_collapsLink['expand'] == '0') {
-        $expand= 0 ;
-      } elseif ($widget_collapsLink['expand'] == '1') {
-        $expand= 1 ;
-      } elseif ($widget_collapsLink['expand'] == '2') {
-        $expand= 2 ;
-      }
+      $expand= $widget_collapsLink['expand'];
       $inExclude= 'include' ;
       if($widget_collapsLink['inExclude'] == 'exclude') {
         $inExclude= 'exclude' ;
       }
+      $animate=1;
+      if( !isset($widget_collapsLink['animate'])) {
+        $animate= 0 ;
+      }
       $inExcludeCats=addslashes($widget_collapsLink['inExcludeCats']);
       $defaultExpand=addslashes($widget_collapsLink['defaultExpand']);
-      $options[$widget_number] = compact( 'title','showLinkCount','catSort','catSortOrder','defaultExpand','expand','inExclude','inExcludeCats','linkSort','linkSortOrder' );
+      $options[$widget_number] = compact( 'title','showLinkCount','catSort','catSortOrder','defaultExpand','expand','inExclude','inExcludeCats','linkSort','linkSortOrder','animate' );
     }
 
     update_option('collapsLinkOptions', $options);
@@ -167,9 +165,10 @@ if (function_exists('collapsLink')) {
     $linkSortOrder = 'ASC';
     $defaultExpand='';
     $number = '%i%';
-    $expand='0';
+    $expand='1';
     $inExclude='include';
     $inExcludeCats='';
+    $animate=1;
   } else {
     $title = attribute_escape($options[$number]['title']);
     $showLinkCount = $options[$number]['showLinkCount'];
@@ -181,6 +180,7 @@ if (function_exists('collapsLink')) {
     $linkSort = $options[$number]['linkSort'];
     $linkSortOrder = $options[$number]['linkSortOrder'];
     $defaultExpand = $options[$number]['defaultExpand'];
+    $animate = $options[$number]['animate'];
   }
 
 		//$title		= wp_specialchars($options['title']);
@@ -213,9 +213,18 @@ if (function_exists('collapsLink')) {
      <input type="radio" name="collapsLink[<?php echo $number ?>][linkSortOrder]" <?php if($linkSortOrder=='DESC') echo 'checked'; ?> id="linkPostDESC" value='DESC'></input> <label for="linkPostDESC">Descending</label>
     </p>
     <p>Expanding and collapse characters:<br />
-     <input type="radio" name="collapsLink[<?php echo $number ?>][expand]" <?php if($expand==0) echo 'checked'; ?> id="expand0" value='0'></input> <label for="expand0">&#9658;&nbsp;&#9660;</label>
+     html: <input type="radio" name="collapsLink[<?php echo $number ?>][expand]" <?php if($expand==0) echo 'checked'; ?> id="expand0" value='0'></input> <label for="expand0">&#9658;&nbsp;&#9660;</label>
      <input type="radio" name="collapsLink[<?php echo $number ?>][expand]" <?php if($expand==1) echo 'checked'; ?> id="expand1" value='1'></input> <label for="expand1">+&nbsp;&mdash;</label>
-     <input type="radio" name="collapsLink[<?php echo $number ?>][expand]" <?php if($expand==2) echo 'checked'; ?> id="expand2" value='2'></input> <label for="expand1">[+]&nbsp;[&mdash;]</label>
+     <input type="radio" name="collapsLink[<?php echo $number ?>][expand]"
+     <?php if($expand==2) echo 'checked'; ?> id="expand2" value='2'></input>
+     <label for="expand2">[+]&nbsp;[&mdash;]</label><br />
+     images:
+     <input type="radio" name="collapsLink[<?php echo $number ?>][expand]"
+     <?php if($expand==3) echo 'checked'; ?> id="expand0" value='3'></input>
+     <label for="expand3"><img src='<?php echo get_settings('siteurl') .
+     "/wp-content/plugins/collapsing-links/" ?>img/collapse.gif' />&nbsp;<img
+     src='<?php echo get_settings('siteurl') .
+     "/wp-content/plugins/collapsing-links/" ?>img/expand.gif' /></label>
     </p>
     <p>Auto-expand these link categories (separated by commas):<br />
      <input type="text" name="collapsLink[<?php echo $number ?>][defaultExpand]" value="<?php echo $defaultExpand ?>" id="collapsLink-defaultExpand-<?php echo $number ?>"</input> 
@@ -228,6 +237,12 @@ if (function_exists('collapsLink')) {
      these link categories (separated by commas):<br />
     <input type="text" name="collapsLink[<?php echo $number ?>][inExcludeCats]" value="<?php echo $inExcludeCats ?>" id="collapsLink-inExcludeCats-<?php echo $number ?>"</input> 
     </p>
+   <p>
+   <input type="checkbox" name="collapsLink[<?php echo $number
+   ?>][animate]" <?php if ($animate==1) echo
+   'checked'; ?> id="animate-<?php echo $number ?>"></input> <label
+   for="animate">Animate collapsing and expanding</label>
+   </p>
    <?php
     echo '<input type="hidden" id="collapsLink-submit-'.$number.'" name="collapsLink['.$number.'][submit]" value="1" />';
 

@@ -1,5 +1,10 @@
 Collapsing Links Changelog
 
+0.1.2: (2008.10.06)
+  * Fixed bug with leaving include/exclude categories blank
+  * Added option to animate expanding and collapsing
+  * Added option for images instead of text as collapsing symbols
+
 0.1.1:
   * Changing default title to 'Blogroll'
  

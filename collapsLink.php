@@ -4,7 +4,7 @@ Plugin Name: Collapsing Links
 Plugin URI: http://blog.robfelty.com/plugins/collapsing-links
 Description: Uses javascript to expand and collapse links to show the posts that belong to the link category 
 Author: Robert Felty
-Version: 0.1.1
+Version: 0.1.2
 Author URI: http://robfelty.com
 Tags: sidebar, widget, links
 
@@ -27,6 +27,7 @@ This file is part of Collapsing Links
     Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */ 
 
+add_action('wp_head', wp_enqueue_script('scriptaculous-effects'));
 add_action( 'wp_head', array('collapsLink','get_head'));
 add_action('activate_collapsing-links/collapsLink.php', array('collapsLink','init'));
 add_action('admin_menu', array('collapsLink','setup'));
@@ -60,17 +61,26 @@ class collapsLink {
     </style>\n";
 		echo "<script type=\"text/javascript\">\n";
 		echo "// <![CDATA[\n";
-		echo "// These variables are part of the Collapsing Links Plugin version: 0.1.1\n// Copyright 2007 Robert Felty (robfelty.com)\n";
-    echo "function expandLink( e, expand ) {
+		echo "// These variables are part of the Collapsing Links Plugin version: 0.1.2\n// Copyright 2007 Robert Felty (robfelty.com)\n";
+    $expandSym="<img src='". get_settings('siteurl') .
+         "/wp-content/plugins/collapsing-archives/" . 
+         "img/expand.gif' alt='expand' />";
+    $collapseSym="<img src='". get_settings('siteurl') .
+         "/wp-content/plugins/collapsing-archives/" . 
+         "img/collapse.gif' alt='collapse' />";
+    echo "function expandLink( e, expand,animate ) {
     if (expand==1) {
       expand='+';
-      collapse='&mdash;';
+      collapse='—';
     } else if (expand==2) {
       expand='[+]';
-      collapse='[&mdash;]';
+      collapse='[—]';
+    } else if (expand==3) {
+      expand=\"$expandSym\";
+      collapse=\"$collapseSym\";
     } else {
-      expand='&#9658;';
-      collapse='&#9660;';
+      expand='►';
+      collapse='▼';
     }
     if( e.target ) {
       src = e.target;
@@ -79,7 +89,16 @@ class collapsLink {
       src = window.event.srcElement;
     }
 
+    if (src.nodeName.toLowerCase() == 'img') {
+      src=src.parentNode;
+      //alert('it is an image');
+    }
     srcList = src.parentNode;
+    //alert(srcList)
+    if (srcList.nodeName.toLowerCase() == 'span') {
+      srcList= srcList.parentNode;
+      src= src.parentNode;
+    }
     childList = null;
 
     for( i = 0; i < srcList.childNodes.length; i++ ) {
@@ -89,13 +108,21 @@ class collapsLink {
     }
 
     if( src.getAttribute( 'class' ) == 'collapsLink hide' ) {
-      childList.style.display = 'none';
+      if (animate==1) {
+        Effect.BlindUp(childList, {duration: 0.5});
+      } else {
+        childList.style.display = 'none';
+      }
       src.setAttribute('class','collapsLink show');
       src.setAttribute('title','click to expand');
       src.innerHTML=expand;
     }
     else {
-      childList.style.display = '';
+      if (animate==1) {
+        Effect.BlindDown(childList, {duration: 0.5});
+      } else {
+        childList.style.display = 'block';
+      }
       src.setAttribute('class','collapsLink hide');
       src.setAttribute('title','click to collapse');
       src.innerHTML=collapse;
