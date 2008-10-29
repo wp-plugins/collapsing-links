@@ -73,7 +73,7 @@ function list_links($number) {
 	if ( empty($inExclusions) ) {
 		$inExcludeQuery = "";
   } else {
-    $inExcludeQuery ="AND $wpdb->terms.name $in ($inExclusions)";
+    $inExcludeQuery ="AND $wpdb->terms.slug $in ($inExclusions)";
   }
 
   $taxonomy=true;
