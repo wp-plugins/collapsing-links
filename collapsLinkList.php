@@ -1,6 +1,6 @@
 <?php
 /*
-Collapsing Links version: 0.1.2
+Collapsing Links version: 0.1.3
 Copyright 2007 Robert Felty
 
 This work is largely based on the Collapsing Links plugin by Andrew Rader
@@ -120,18 +120,21 @@ function list_links($number) {
   echo "\n    <ul id='collapsLinkList-$number'>\n";
 
   if ($taxonomy==true) {
-		$catquery = "SELECT $wpdb->term_taxonomy.count as 'count',
+    $catquery = "SELECT $wpdb->term_taxonomy.count as 'count',
 			$wpdb->terms.term_id, $wpdb->terms.name, $wpdb->terms.slug,
 			$wpdb->term_taxonomy.parent, $wpdb->term_taxonomy.description FROM
 			$wpdb->terms, $wpdb->term_taxonomy WHERE $wpdb->terms.term_id =
 			$wpdb->term_taxonomy.term_id  AND
 			$wpdb->term_taxonomy.taxonomy = 'link_category' $inExcludeQuery
       $catSortColumn $catSortOrder";
- $linkquery="SELECT * FROM $wpdb->links l inner join $wpdb->term_relationships tr on l.link_id = tr.object_id inner join $wpdb->term_taxonomy tt on tt.term_taxonomy_id = tr.term_taxonomy_id inner join $wpdb->terms t on t.term_id = tt.term_id WHERE tt.taxonomy='link_category' AND l.link_visible='Y' $linkSortColumn $linkSortOrder";
+    $linkquery="SELECT * FROM $wpdb->links l
+        inner join $wpdb->term_relationships tr on l.link_id = tr.object_id
+        inner join $wpdb->term_taxonomy tt on 
+        tt.term_taxonomy_id = tr.term_taxonomy_id 
+        inner join $wpdb->terms t on t.term_id = tt.term_id 
+        WHERE tt.taxonomy='link_category' AND l.link_visible='Y' 
+        $linkSortColumn $linkSortOrder";
   }
-    /* changing to use only one query 
-     * don't forget to exclude pages if so desired
-     */
   $cats = $wpdb->get_results($catquery);
   $links= $wpdb->get_results($linkquery); 
   $parents=array();
@@ -187,7 +190,9 @@ function list_links($number) {
         foreach ($links as $link) {
           if ($link->term_id == $cat->term_id) {
             $name=$link->link_name;
-            echo "          <li class='collapsLinklink'><a href='".  $link->link_url."'>" .  strip_tags($link->link_name) . "</a></li>\n";
+            echo "          <li class='collapsLinklink'><a href='".
+                $link->link_url."' target='" .$link->link_target . "'>" .
+                strip_tags($link->link_name) . "</a></li>\n";
           }
         }
           // close <ul> and <li> before starting a new linkegory
