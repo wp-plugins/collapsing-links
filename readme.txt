@@ -4,7 +4,7 @@ Donate link: http://blog.robfelty.com/plugins/collapsing-links
 Plugin URI: http://blog.robfelty.com/plugins/collapsing-links
 Tags: links, sidebar, widget
 Requires at least: 2.3
-Tested up to: 2.6.1
+Tested up to: 2.6.5
 Stable tag: 0.1.4
 
 This widget uses Javascript to dynamically expand or collapsable the set of
@@ -24,8 +24,34 @@ It is based off of the Collapsing Categories and Collapsing Pages plugins.
 
 Unpackage contents to wp-content/plugins/ so that the files are in a
 collapsing-links directory. Activate the plugin in your Wordpress Admin
-interface -- Collapsing Links. Then simply go the Presentation > Widgets
-section and drag over the Collapsing Links Widget.
+interface -- Collapsing Links. 
+
+MANUAL INSTALLATION
+
+To use the plugin manually,
+change the following here appropriate (most likely sidebar.php):
+
+Change From:
+
+    <ul>
+     `<?php get_links_list(); ?>`
+    </ul>
+
+To something of the following:
+`
+    <?php
+     if( function_exists('collapsLink') ) {
+      collapsLink('%i%');
+     } else {
+      echo "<ul>\n";
+      get_links_list();
+      echo "</ul>\n";
+     }
+    ?>
+`
+WIDGET INSTALLATION
+
+simply go the Presentation > Widgets section and drag over the Collapsing Links Widget.
 
 == Frequently Asked Questions ==
 
@@ -63,6 +89,16 @@ database, which includes both visible and invisible links. If you have
 invisible links, this number will be wrong.
 
 == HISTORY ==
+
+0.2: (2008.12.08)
+  * Can now use as a widget or manually
+  * consolidated javascript to work with other collapsing plugins
+  * Uses cookies to keep track of which link categories have been expanded /
+    collapsed
+
+0.1.4: (2008.10.29)
+  * Fixed bug so that multi-word categories are correctly included / excluded
+
 
 0.1.3: (2008.10.29)
   * Now opens links in specified target (blank,top,none)

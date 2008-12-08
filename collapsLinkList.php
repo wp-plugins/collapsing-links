@@ -1,6 +1,6 @@
 <?php
 /*
-Collapsing Links version: 0.1.4
+Collapsing Links version: 0.2
 Copyright 2007 Robert Felty
 
 This work is largely based on the Collapsing Links plugin by Andrew Rader
@@ -34,7 +34,6 @@ function list_links($number) {
 
   $options=get_option('collapsLinkOptions');
   extract($options[$number]);
-  //$exclude=$exclude;
   if ($expand==1) {
     $expandSym='+';
     $collapseSym='—';
@@ -43,10 +42,10 @@ function list_links($number) {
     $collapseSym='[—]';
   } elseif ($expand==3) {
     $expandSym="<img src='". get_settings('siteurl') .
-         "/wp-content/plugins/collapsing-archives/" . 
+         "/wp-content/plugins/collapsing-links/" . 
          "img/expand.gif' alt='expand' />";
     $collapseSym="<img src='". get_settings('siteurl') .
-         "/wp-content/plugins/collapsing-archives/" . 
+         "/wp-content/plugins/collapsing-links/" . 
          "img/collapse.gif' alt='collapse' />";
   } else {
     $expandSym='►';
@@ -143,19 +142,12 @@ function list_links($number) {
       array_push($parents, $cat->parent);
     }
   }
-/*
-  echo "<pre>";
-  echo "$catquery";
-  print_r($cats);
-  print_r($links);
-  echo "</pre>";
-*/
   
   foreach( $cats as $cat ) {
     $expanded='none';
     if (in_array($cat->name, $autoExpand) ||
         in_array($cat->slug, $autoExpand)) {
-      $expanded='inline';
+      $expanded='block';
     }
     $url = get_settings('siteurl');
     $home=$url;
@@ -169,10 +161,10 @@ function list_links($number) {
       
     $theCount=$cat->count;
     if ($theCount>0) {
-        if ($expanded=='inline') {
-          print( "      <li class='collapsLink'><span class='collapsLink hide' onclick='expandLink(event,$expand,$animate); return false'><span class='sym'>$collapseSym</span></span> " );
+        if ($expanded=='block') {
+          print( "      <li class='collapsLink'><span class='collapsLink hide' onclick='expandCollapse(event, $expand, $animate, \"collapsLink\"); return false'><span class='sym'>$collapseSym</span></span> " );
         } else {
-          print( "      <li class='collapsLink'><span class='collapsLink show' onclick='expandLink(event,$expand,$animate); return false'><span class='sym'>$expandSym</span></span> " );
+          print( "      <li class='collapsLink'><span class='collapsLink show' onclick='expandCollapse(event, $expand, $animate, \"collapsLink\"); return false'><span class='sym'>$expandSym</span></span> " );
         }
       if( $showLinkCount=='yes') {
         if ($taxonomy==true) {
@@ -182,11 +174,8 @@ function list_links($number) {
         print( $heading );
       // Now print out the link info
       if( ! empty($links) ) {
-        if ($expanded=='inline') {
-          echo "<ul>\n";
-        } else {
-          echo "<ul style='display:none'>\n";
-        }
+        echo "\n<ul id='collapsLink-" . $cat->term_id . 
+            "' style=\"display:$expanded\">\n";
         foreach ($links as $link) {
           if ($link->term_id == $cat->term_id) {
             $name=$link->link_name;
@@ -197,7 +186,7 @@ function list_links($number) {
         }
           // close <ul> and <li> before starting a new linkegory
         echo "        </ul>\n";
-      echo "      </li> <!-- ending linkegory -->\n";
+      echo "      </li> <!-- ending link -->\n";
       }
     } // end if theCount>0
   }

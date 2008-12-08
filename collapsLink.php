@@ -4,7 +4,7 @@ Plugin Name: Collapsing Links
 Plugin URI: http://blog.robfelty.com/plugins/collapsing-links
 Description: Uses javascript to expand and collapse links to show the posts that belong to the link category 
 Author: Robert Felty
-Version: 0.1.4
+Version: 0.2
 Author URI: http://robfelty.com
 Tags: sidebar, widget, links
 
@@ -27,6 +27,7 @@ This file is part of Collapsing Links
     Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */ 
 
+add_action('wp_head', wp_enqueue_script('collapsFunctions', "$url/wp-content/plugins/collapsing-links/collapsFunctions.js"));
 add_action('wp_head', wp_enqueue_script('scriptaculous-effects'));
 add_action( 'wp_head', array('collapsLink','get_head'));
 add_action('activate_collapsing-links/collapsLink.php', array('collapsLink','init'));
@@ -35,23 +36,32 @@ add_action('admin_menu', array('collapsLink','setup'));
 class collapsLink {
 
 	function init() {
-    $options=array(
-			'showLinkCount'=> 'yes' ,
-			'catSort'=> 'catName' ,
-			'catSortOrder'=> 'ASC' ,
-			'sort'=> 'linkName' ,
-			'sortOrder'=> 'ASC' ,
-			'exclude'=> '' ,
-			'expand'=> 0 ,
-			'defaultExpand'=> ''
-    );
-    $collapsLinkOptions=$options;
-		if( function_exists('add_option') ) {
-//      add_option( 'collapsLinkOptions', $collapsLinkOptions);
-		}
+    if (!get_option('collapsLinkOptions')) {
+      $options=array('%i%' => array(
+        'showLinkCount'=> 'yes' ,
+        'catSort'=> 'linkName' ,
+        'catSortOrder'=> 'ASC' ,
+        'linkSort'=> 'linkName' ,
+        'linkSortOrder'=> 'ASC' ,
+        'exclude'=> '' ,
+        'expand'=> '0' ,
+        'defaultExpand'=> '',
+        'animate' => '1'
+      ));
+      if( function_exists('add_option') ) {
+        add_option( 'collapsLinkOptions', $options);
+      }
+    }
 	}
 
 	function setup() {
+		if( function_exists('add_options_page') ) {
+			add_options_page(__('Collapsing Links'),__('Collapsing
+      Links'),1,basename(__FILE__),array('collapsLink','ui'));
+		}
+	}
+	function ui() {
+		include_once( 'collapsPageUI.php' );
 	}
 
 	function get_head() {
@@ -61,80 +71,20 @@ class collapsLink {
     </style>\n";
 		echo "<script type=\"text/javascript\">\n";
 		echo "// <![CDATA[\n";
-		echo "// These variables are part of the Collapsing Links Plugin version: 0.1.4\n// Copyright 2007 Robert Felty (robfelty.com)\n";
+		echo "// These variables are part of the Collapsing Links Plugin version: 0.2\n// Copyright 2007 Robert Felty (robfelty.com)\n";
     $expandSym="<img src='". get_settings('siteurl') .
-         "/wp-content/plugins/collapsing-archives/" . 
+         "/wp-content/plugins/collapsing-links/" . 
          "img/expand.gif' alt='expand' />";
     $collapseSym="<img src='". get_settings('siteurl') .
-         "/wp-content/plugins/collapsing-archives/" . 
+         "/wp-content/plugins/collapsing-links/" . 
          "img/collapse.gif' alt='collapse' />";
-    echo "function expandLink( e, expand,animate ) {
-    if (expand==1) {
-      expand='+';
-      collapse='—';
-    } else if (expand==2) {
-      expand='[+]';
-      collapse='[—]';
-    } else if (expand==3) {
-      expand=\"$expandSym\";
-      collapse=\"$collapseSym\";
-    } else {
-      expand='►';
-      collapse='▼';
-    }
-    if( e.target ) {
-      src = e.target;
-    }
-    else {
-      src = window.event.srcElement;
-    }
-
-    if (src.nodeName.toLowerCase() == 'img') {
-      src=src.parentNode;
-      //alert('it is an image');
-    }
-    srcList = src.parentNode;
-    //alert(srcList)
-    if (srcList.nodeName.toLowerCase() == 'span') {
-      srcList= srcList.parentNode;
-      src= src.parentNode;
-    }
-    childList = null;
-
-    for( i = 0; i < srcList.childNodes.length; i++ ) {
-      if( srcList.childNodes[i].nodeName.toLowerCase() == 'ul' ) {
-        childList = srcList.childNodes[i];
-      }
-    }
-
-    if( src.getAttribute( 'class' ) == 'collapsLink hide' ) {
-      if (animate==1) {
-        Effect.BlindUp(childList, {duration: 0.5});
-      } else {
-        childList.style.display = 'none';
-      }
-      src.setAttribute('class','collapsLink show');
-      src.setAttribute('title','click to expand');
-      src.innerHTML=expand;
-    }
-    else {
-      if (animate==1) {
-        Effect.BlindDown(childList, {duration: 0.5});
-      } else {
-        childList.style.display = 'block';
-      }
-      src.setAttribute('class','collapsLink hide');
-      src.setAttribute('title','click to collapse');
-      src.innerHTML=collapse;
-    }
-
-    if( e.preventDefault ) {
-      e.preventDefault();
-    }
-
-    return false;
-  }\n";
-
+    echo "var expandSym=\"$expandSym\";";
+    echo "var collapseSym=\"$collapseSym\";";
+    echo"
+    addLoadEvent(function() {
+      autoExpandCollapse('collapsLink');
+    });
+    ";
 		echo "// ]]>\n</script>\n";
 	}
 }
