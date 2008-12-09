@@ -53,7 +53,7 @@ if ( !$options = get_option('collapsLinkOptions') )
 
 // Run our code later in case this loads prior to any required plugins.
 if (function_exists('collapsLink')) {
-	add_action('plugins_loaded', 'collapsLinkWidgetInit');
+	add_action('widgets_init', 'collapsLinkWidgetInit');
 } else {
 	$fname = basename(__FILE__);
 	$current = get_settings('active_plugins');
