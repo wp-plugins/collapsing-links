@@ -5,6 +5,8 @@ Collapsing Links Changelog
   * consolidated javascript to work with other collapsing plugins
   * Uses cookies to keep track of which link categories have been expanded /
     collapsed
+  * style can be set with an option
+  * inline javascript moved to bottom
 
 0.1.4: (2008.10.29)
   * Fixed bug so that multi-word categories are correctly included / excluded

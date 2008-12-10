@@ -30,6 +30,7 @@ This file is part of Collapsing Links
 add_action('wp_head', wp_enqueue_script('collapsFunctions', "$url/wp-content/plugins/collapsing-links/collapsFunctions.js"));
 add_action('wp_head', wp_enqueue_script('scriptaculous-effects'));
 add_action( 'wp_head', array('collapsLink','get_head'));
+add_action( 'wp_footer', array('collapsLink','get_foot'));
 add_action('activate_collapsing-links/collapsLink.php', array('collapsLink','init'));
 add_action('admin_menu', array('collapsLink','setup'));
 
@@ -52,6 +53,27 @@ class collapsLink {
         add_option( 'collapsLinkOptions', $options);
       }
     }
+    $style="span.collapsLink {border:0;
+padding:0; 
+margin:0; 
+cursor:pointer;
+/* font-family: Monaco, 'Andale Mono', Courier, monospace;*/
+}
+
+#sidebar li.collapsLink:before {content:'';} 
+#sidebar li.collapsLink {list-style-type:none}
+#sidebar li.collapsLinkPost {
+       text-indent:-1em;
+       margin:0 0 0 1em;}
+li.widget.collapsLink ul {margin-left:.5em;}
+#sidebar li.collapsItem :before {content: \"\\00BB \\00A0\" !important;} 
+#sidebar li.collapsLink .sym {
+   font-size:1.2em;
+   font-family:Monaco, 'Andale Mono', 'FreeMono', 'Courier new', 'Courier', monospace;
+    padding-right:5px;}";
+    if( function_exists('add_option') ) {
+      add_option( 'collapsLinkStyle', $style);
+    }
 	}
 
 	function setup() {
@@ -61,14 +83,15 @@ class collapsLink {
 		}
 	}
 	function ui() {
-		include_once( 'collapsPageUI.php' );
+		include_once( 'collapsLinkUI.php' );
 	}
 
 	function get_head() {
 		$url = get_settings('siteurl');
     echo "<style type='text/css'>
-		@import '$url/wp-content/plugins/collapsing-links/collapsLink.css';
     </style>\n";
+	}
+  function get_foot() {
 		echo "<script type=\"text/javascript\">\n";
 		echo "// <![CDATA[\n";
 		echo "// These variables are part of the Collapsing Links Plugin version: 0.2\n// Copyright 2007 Robert Felty (robfelty.com)\n";
@@ -86,7 +109,7 @@ class collapsLink {
     });
     ";
 		echo "// ]]>\n</script>\n";
-	}
+  }
 }
 
 
