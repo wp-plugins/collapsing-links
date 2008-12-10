@@ -54,8 +54,8 @@
    for="animate">Animate collapsing and expanding</label>
    </p>
    <p>
-<label for="collapsPageStyle">Style info:</label>
-   <textarea cols='60' rows='6' id="collapsPageStyle" name="collapsPageStyle">
-    <?php echo stripslashes(get_option('collapsPageStyle')) ?>
+<label for="collapsLinkStyle">Style info:</label>
+   <textarea cols='60' rows='6' id="collapsLinkStyle" name="collapsLinkStyle">
+    <?php echo stripslashes(get_option('collapsLinkStyle')) ?>
    </textarea>
     </p>

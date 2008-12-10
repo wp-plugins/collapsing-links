@@ -66,7 +66,7 @@ cursor:pointer;
        text-indent:-1em;
        margin:0 0 0 1em;}
 li.widget.collapsLink ul {margin-left:.5em;}
-#sidebar li.collapsLinkItem :before {content: \"\\00BB \\00A0\" !important;} 
+#sidebar li.collapsLinkItem :before {content: \"\\\\00BB \\\\00A0\" !important;} 
 #sidebar li.collapsLink .sym {
    font-size:1.2em;
    font-family:Monaco, 'Andale Mono', 'FreeMono', 'Courier new', 'Courier', monospace;

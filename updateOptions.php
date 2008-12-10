@@ -57,6 +57,6 @@
 
     update_option('collapsLinkOptions', $options);
     $updated = true;
-    $style=$_POST['collapsPageStyle'];
-    update_option('collapsPageStyle', $style);
+    $style=$_POST['collapsLinkStyle'];
+    update_option('collapsLinkStyle', $style);
 ?>
