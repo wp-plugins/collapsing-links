@@ -95,68 +95,12 @@ if (function_exists('collapsLink')) {
     }
     include('updateOptions.php');
   }
+  include('processOptions.php');
 
 
-		//$title		= wp_specialchars($options['title']);
-    // Here is our little form segment. Notice that we don't need a
-    // complete form. This will be embedded into the existing form.
     echo '<p style="text-align:right;"><label for="collapsLink-title-'.$number.'">' . __('Title:') . '<input class="widefat" style="width: 200px;" id="collapsLink-title-'.$number.'" name="collapsLink['.$number.'][title]" type="text" value="'.$title.'" /></label></p>';
+  include('options.txt');
   ?>
-    <p>
-     <input type="checkbox" name="collapsLink[<?php echo $number ?>][showLinkCount]" <?php if ($showLinkCount=='yes')  echo 'checked'; ?> id="collapsLink-showLinkCount-<?php echo $number ?>"></input> <label for="collapsLinkShowLinkCount">Show Link Count </label>
-    </p>
-    <p>Sort Link Categories by:<br />
-     <select name="collapsLink[<?php echo $number ?>][catSort]">
-     <option <?php if($catSort=='linkName') echo 'selected'; ?> id="sortLinkName" value='linkName'>Link category name</option>
-     <option <?php if($catSort=='linkId') echo 'selected'; ?> id="sortLinkId" value='linkId'>Link category id</option>
-     <option <?php if($catSort=='linkSlug') echo 'selected'; ?> id="sortLinkSlug" value='linkSlug'>Link category Slug</option>
-     <option <?php if($catSort=='linkOrder') echo 'selected'; ?> id="sortLinkOrder" value='linkOrder'>Link category (term) Order</option>
-     <option <?php if($catSort=='linkCount') echo 'selected'; ?> id="sortLinkCount" value='linkCount'>Link category Count</option>
-    </select>
-     <input type="radio" name="collapsLink[<?php echo $number ?>][catSortOrder]" <?php if($catSortOrder=='ASC') echo 'checked'; ?> id="collapsLink-catSortASC-<?php echo $number ?>" value='ASC'></input> <label for="collapsLinkCatSortASC">Ascending</label>
-     <input type="radio" name="collapsLink[<?php echo $number ?>][catSortOrder]" <?php if($catSortOrder=='DESC') echo 'checked'; ?> id="collapsLink-catSortDESC-<?php echo $number ?>" value='DESC'></input> <label for="collapsLinkCatSortDESC">Descending</label>
-    </p>
-    <p>Sort Links by:<br />
-     <select name="collapsLink[<?php echo $number ?>][linkSort]">
-     <option <?php if($linkSort=='linkName') echo 'selected'; ?> id="sortLinkName-<?php echo $number ?>" value='linkName'>Link name</option>
-     <option <?php if($linkSort=='linkId') echo 'selected'; ?> id="sortLinkId-<?php echo $number ?>" value='linkId'>Link id</option>
-     <option <?php if($linkSort=='linkUrl') echo 'selected'; ?> id="sortLinkUrl-<?php echo $number ?>" value='linkUrl'>Link Url</option>
-     <option <?php if($linkSort=='linkRating') echo 'selected'; ?> id="sortLinkOrder-<?php echo $number ?>" value='linkRating'>Link Rating</option>
-    </select>
-     <input type="radio" name="collapsLink[<?php echo $number ?>][linkSortOrder]" <?php if($linkSortOrder=='ASC') echo 'checked'; ?> id="linkSortASC" value='ASC'></input> <label for="linkPostASC">Ascending</label>
-     <input type="radio" name="collapsLink[<?php echo $number ?>][linkSortOrder]" <?php if($linkSortOrder=='DESC') echo 'checked'; ?> id="linkPostDESC" value='DESC'></input> <label for="linkPostDESC">Descending</label>
-    </p>
-    <p>Expanding and collapse characters:<br />
-     html: <input type="radio" name="collapsLink[<?php echo $number ?>][expand]" <?php if($expand==0) echo 'checked'; ?> id="expand0" value='0'></input> <label for="expand0">&#9658;&nbsp;&#9660;</label>
-     <input type="radio" name="collapsLink[<?php echo $number ?>][expand]" <?php if($expand==1) echo 'checked'; ?> id="expand1" value='1'></input> <label for="expand1">+&nbsp;&mdash;</label>
-     <input type="radio" name="collapsLink[<?php echo $number ?>][expand]"
-     <?php if($expand==2) echo 'checked'; ?> id="expand2" value='2'></input>
-     <label for="expand2">[+]&nbsp;[&mdash;]</label><br />
-     images:
-     <input type="radio" name="collapsLink[<?php echo $number ?>][expand]"
-     <?php if($expand==3) echo 'checked'; ?> id="expand0" value='3'></input>
-     <label for="expand3"><img src='<?php echo get_settings('siteurl') .
-     "/wp-content/plugins/collapsing-links/" ?>img/collapse.gif' />&nbsp;<img
-     src='<?php echo get_settings('siteurl') .
-     "/wp-content/plugins/collapsing-links/" ?>img/expand.gif' /></label>
-    </p>
-    <p>Auto-expand these link categories (separated by commas):<br />
-     <input type="text" name="collapsLink[<?php echo $number ?>][defaultExpand]" value="<?php echo $defaultExpand ?>" id="collapsLink-defaultExpand-<?php echo $number ?>"</input> 
-    </p>
-    <p> 
-     <select name="collapsLink[<?php echo $number ?>][inExclude]">
-     <option  <?php if($inExclude=='include') echo 'selected'; ?> id="inExcludeInclude-<?php echo $number ?>" value='include'>Include</option>
-     <option  <?php if($inExclude=='exclude') echo 'selected'; ?> id="inExcludeExclude-<?php echo $number ?>" value='exclude'>Exclude</option>
-     </select>
-     these link categories (separated by commas):<br />
-    <input type="text" name="collapsLink[<?php echo $number ?>][inExcludeCats]" value="<?php echo $inExcludeCats ?>" id="collapsLink-inExcludeCats-<?php echo $number ?>"</input> 
-    </p>
-   <p>
-   <input type="checkbox" name="collapsLink[<?php echo $number
-   ?>][animate]" <?php if ($animate==1) echo
-   'checked'; ?> id="animate-<?php echo $number ?>"></input> <label
-   for="animate">Animate collapsing and expanding</label>
-   </p>
    <?php
     echo '<input type="hidden" id="collapsLink-submit-'.$number.'" name="collapsLink['.$number.'][submit]" value="1" />';
 
