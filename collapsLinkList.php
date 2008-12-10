@@ -179,7 +179,7 @@ function list_links($number) {
         foreach ($links as $link) {
           if ($link->term_id == $cat->term_id) {
             $name=$link->link_name;
-            echo "          <li class='collapsLinklink'><a href='".
+            echo "          <li class='collapsLinkItem'><a href='".
                 $link->link_url."' target='" .$link->link_target . "'>" .
                 strip_tags($link->link_name) . "</a></li>\n";
           }
