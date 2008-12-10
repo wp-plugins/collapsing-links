@@ -88,7 +88,7 @@ li.widget.collapsLink ul {margin-left:.5em;}
 
 	function get_head() {
 		$url = get_settings('siteurl');
-    $style=get_option('collapsLinkStyle');
+    $style=stripslashes(get_option('collapsLinkStyle'));
     echo "<style type='text/css'>
     $style
     </style>\n";
