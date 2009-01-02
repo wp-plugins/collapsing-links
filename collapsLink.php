@@ -4,7 +4,7 @@ Plugin Name: Collapsing Links
 Plugin URI: http://blog.robfelty.com/plugins/collapsing-links
 Description: Uses javascript to expand and collapse links to show the posts that belong to the link category 
 Author: Robert Felty
-Version: 0.2
+Version: 0.2.1
 Author URI: http://robfelty.com
 Tags: sidebar, widget, links
 
@@ -27,6 +27,7 @@ This file is part of Collapsing Links
     Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */ 
 
+$url = get_settings('siteurl');
 add_action('wp_head', wp_enqueue_script('collapsFunctions', "$url/wp-content/plugins/collapsing-links/collapsFunctions.js"));
 add_action('wp_head', wp_enqueue_script('scriptaculous-effects'));
 add_action( 'wp_head', array('collapsLink','get_head'));
@@ -96,7 +97,7 @@ li.widget.collapsLink ul {margin-left:.5em;}
   function get_foot() {
 		echo "<script type=\"text/javascript\">\n";
 		echo "// <![CDATA[\n";
-		echo "// These variables are part of the Collapsing Links Plugin version: 0.2\n// Copyright 2007 Robert Felty (robfelty.com)\n";
+		echo "// These variables are part of the Collapsing Links Plugin version: 0.2.1\n// Copyright 2007 Robert Felty (robfelty.com)\n";
     $expandSym="<img src='". get_settings('siteurl') .
          "/wp-content/plugins/collapsing-links/" . 
          "img/expand.gif' alt='expand' />";

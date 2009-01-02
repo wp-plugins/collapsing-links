@@ -1,6 +1,6 @@
 <?php
 /*
-Collapsing Links version: 0.2
+Collapsing Links version: 0.2.1
 Copyright 2007 Robert Felty
 
 This work is largely based on the Collapsing Links plugin by Andrew Rader
@@ -179,8 +179,14 @@ function list_links($number) {
         foreach ($links as $link) {
           if ($link->term_id == $cat->term_id) {
             $name=$link->link_name;
+						if ( empty($link->link_description) ) {
+							$linkTitle=$link->link_name;
+						} else {
+							$linkTitle=$link->link_description;
+						}
             echo "          <li class='collapsLinkItem'><a href='".
-                $link->link_url."' target='" .$link->link_target . "'>" .
+                $link->link_url."' title='$linkTitle' target='" .
+								$link->link_target . "'>" .
                 strip_tags($link->link_name) . "</a></li>\n";
           }
         }
