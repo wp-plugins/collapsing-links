@@ -1,6 +1,6 @@
 <?php
 /*
-Collapsing Links version: 0.2.1
+Collapsing Links version: 0.2.2
 Copyright 2008 Robert Felty
 
 This file is part of Collapsing Links

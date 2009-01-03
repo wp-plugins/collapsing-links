@@ -1,6 +1,6 @@
 <?php
 /*
-Collapsing Links version: 0.2.1
+Collapsing Links version: 0.2.2
 Copyright 2007 Robert Felty
 
 This work is largely based on the Collapsing Links plugin by Andrew Rader
@@ -162,16 +162,16 @@ function list_links($number) {
     $theCount=$cat->count;
     if ($theCount>0) {
         if ($expanded=='block') {
-          print( "      <li class='collapsLink'><span class='collapsLink hide' onclick='expandCollapse(event, $expand, $animate, \"collapsLink\"); return false'><span class='sym'>$collapseSym</span></span> " );
+          print( "      <li class='collapsLink'><span title='click to collapse' class='collapsLink hide' onclick='expandCollapse(event, $expand, $animate, \"collapsLink\"); return false'><span class='sym'>$collapseSym</span>" );
         } else {
-          print( "      <li class='collapsLink'><span class='collapsLink show' onclick='expandCollapse(event, $expand, $animate, \"collapsLink\"); return false'><span class='sym'>$expandSym</span></span> " );
+          print( "      <li class='collapsLink'><span title='click to expand' class='collapsLink show' onclick='expandCollapse(event, $expand, $animate, \"collapsLink\"); return false'><span class='sym'>$expandSym</span> " );
         }
       if( $showLinkCount=='yes') {
         if ($taxonomy==true) {
           $heading .= ' (' . $theCount.')';
         }
       }
-        print( $heading );
+        print( $heading ."</span>\n");
       // Now print out the link info
       if( ! empty($links) ) {
         echo "\n<ul id='collapsLink-" . $cat->term_id . 

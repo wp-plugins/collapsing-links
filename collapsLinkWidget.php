@@ -100,6 +100,7 @@ if (function_exists('collapsLink')) {
 
     echo '<p style="text-align:right;"><label for="collapsLink-title-'.$number.'">' . __('Title:') . '<input class="widefat" style="width: 200px;" id="collapsLink-title-'.$number.'" name="collapsLink['.$number.'][title]" type="text" value="'.$title.'" /></label></p>';
   include('options.txt');
+    echo $thisLink->style;
   ?>
    <?php
     echo '<input type="hidden" id="collapsLink-submit-'.$number.'" name="collapsLink['.$number.'][submit]" value="1" />';
