@@ -52,9 +52,13 @@
    ?>][animate]" <?php if ($animate==1) echo
    'checked'; ?> id="animate-<?php echo $number ?>"></input> <label
    for="animate">Animate collapsing and expanding</label>
+   <input type="checkbox" name="collapsLink[<?php echo $number
+   ?>][nofollow]" <?php if ($nofollow==1) echo
+   'checked'; ?> id="nofollow-<?php echo $number ?>"></input> <label
+   for="nofollow">add nofollow to links </label>
    </p>
-     <input type="checkbox" name="collapsCat[<?php echo $number ?>][debug]"
-<?php if ($debug=='1')  echo 'checked'; ?> id="collapsCat-debug-<?php echo
-$number ?>"></input> <label for="collapsCatDebug">Show debugging information
+     <input type="checkbox" name="collapsLink[<?php echo $number ?>][debug]"
+<?php if ($debug=='1')  echo 'checked'; ?> id="collapsLink-debug-<?php echo
+$number ?>"></input> <label for="collapsLinkDebug">Show debugging information
 (shows up as a hidden pre right after the title)</label>
     </p>

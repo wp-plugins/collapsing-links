@@ -14,6 +14,7 @@
     $inExclude='include';
     $inExcludeCats='';
     $animate=1;
+    $nofollow=1;
     $debug=0;
   } else {
     $title = attribute_escape($options[$number]['title']);
@@ -27,6 +28,7 @@
     $linkSortOrder = $options[$number]['linkSortOrder'];
     $defaultExpand = $options[$number]['defaultExpand'];
     $animate = $options[$number]['animate'];
+    $nofollow = $options[$number]['nofollow'];
     $debug = $options[$number]['debug'];
   }
 ?>

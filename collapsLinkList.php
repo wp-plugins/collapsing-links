@@ -1,6 +1,6 @@
 <?php
 /*
-Collapsing Links version: 0.2.3
+Collapsing Links version: 0.2.4
 Copyright 2007 Robert Felty
 
 This work is largely based on the Collapsing Links plugin by Andrew Rader
@@ -198,9 +198,13 @@ function list_links($number) {
 						} else {
 							$linkTitle=$link->link_description;
 						}
+            $rel=$link->link_rel;
+            if ($nofollow==1) {
+              $rel.= ' nofollow';
+            }
             echo "          <li class='collapsLinkItem'><a href='".
-                $link->link_url."' title='$linkTitle' target='" .
-								$link->link_target . "'>" .
+                $link->link_url."' title=\"$linkTitle\" target='" .
+								$link->link_target . "' rel=\"$rel\" >" .
                 strip_tags($link->link_name) . "</a></li>\n";
           }
         }

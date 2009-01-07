@@ -5,7 +5,7 @@ Plugin URI: http://blog.robfelty.com/plugins/collapsing-links
 Tags: links, sidebar, widget
 Requires at least: 2.3
 Tested up to: 2.6.5
-Stable tag: 0.2.3
+Stable tag: 0.2.4
 
 This widget uses Javascript to dynamically expand or collapsable the set of
 links for each link category.
@@ -92,6 +92,13 @@ database, which includes both visible and invisible links. If you have
 invisible links, this number will be wrong.
 
 == HISTORY ==
+
+* 0.2.4: (2009.01.07)
+    * Added nofollow option
+    * Added version to javascript
+    * not loading unnecessary code for admin pages (fixes interference with
+      akismet stats page
+    * fixed debugging option
 
 * 0.2.3: (2009.01.06)
     * Finally fixed disappearing widget problem when trying to add to sidebar

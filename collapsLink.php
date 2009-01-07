@@ -4,7 +4,7 @@ Plugin Name: Collapsing Links
 Plugin URI: http://blog.robfelty.com/plugins/collapsing-links
 Description: Uses javascript to expand and collapse links to show the posts that belong to the link category 
 Author: Robert Felty
-Version: 0.2.3
+Version: 0.2.4
 Author URI: http://robfelty.com
 Tags: sidebar, widget, links
 
@@ -28,10 +28,13 @@ This file is part of Collapsing Links
 */ 
 
 $url = get_settings('siteurl');
-add_action('wp_head', wp_enqueue_script('collapsFunctions', "$url/wp-content/plugins/collapsing-links/collapsFunctions.js"));
-add_action('wp_head', wp_enqueue_script('scriptaculous-effects'));
-add_action( 'wp_head', array('collapsLink','get_head'));
-add_action( 'wp_footer', array('collapsLink','get_foot'));
+if (!is_admin()) {
+  add_action('wp_head', wp_enqueue_script('collapsFunctions',
+  "$url/wp-content/plugins/collapsing-links/collapsFunctions.js", '', '1.0'));
+  add_action('wp_head', wp_enqueue_script('scriptaculous-effects'));
+  add_action( 'wp_head', array('collapsLink','get_head'));
+  add_action( 'wp_footer', array('collapsLink','get_foot'));
+}
 add_action('activate_collapsing-links/collapsLink.php', array('collapsLink','init'));
 add_action('admin_menu', array('collapsLink','setup'));
 
@@ -70,6 +73,7 @@ li.widget.collapsLink ul {margin-left:.5em;}
         'expand'=> '0' ,
         'defaultExpand'=> '',
         'animate' => '1',
+        'nofollow' => '1',
         'debug' => '0'
       ));
       if( function_exists('add_option') ) {
@@ -101,7 +105,7 @@ li.widget.collapsLink ul {margin-left:.5em;}
   function get_foot() {
 		echo "<script type=\"text/javascript\">\n";
 		echo "// <![CDATA[\n";
-		echo "// These variables are part of the Collapsing Links Plugin version: 0.2.3\n// Copyright 2007 Robert Felty (robfelty.com)\n";
+		echo "// These variables are part of the Collapsing Links Plugin version: 0.2.4\n// Copyright 2007 Robert Felty (robfelty.com)\n";
     $expandSym="<img src='". get_settings('siteurl') .
          "/wp-content/plugins/collapsing-links/" . 
          "img/expand.gif' alt='expand' />";
