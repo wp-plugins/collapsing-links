@@ -23,10 +23,7 @@ It is based off of the Collapsing Categories and Collapsing Pages plugins.
 == Installation ==
 
 IMPORTANT!
-Please deactivate before upgrading, then re-activate the plugin. Also, note
-that in WP 2.7, adding the widget does not seem to work if you have "show all
-widgets" selected, but it does if you select "show unused widgets" from the
-widget editing menu. Hopefully this will be corrected eventually
+Please deactivate before upgrading, then re-activate the plugin.
 
 Unpackage contents to wp-content/plugins/ so that the files are in a
 collapsing-links directory. Activate the plugin in your Wordpress Admin
@@ -96,30 +93,40 @@ invisible links, this number will be wrong.
 
 == HISTORY ==
 
-0.2.1: (2009.01.02)
+* 0.2.3: (2009.01.06)
+    * Finally fixed disappearing widget problem when trying to add to sidebar
+    * Added debugging option to show the query used and the output
+    * Moved style option to options page
+    * tweaked default style
+
+* 0.2.2: (2009.01.03)
+  * Added title attributes so that "click to expand" shows on hover.
+  * Now the collapse symbol and collapse text are clickable
+
+* 0.2.1: (2009.01.02)
   * Fixed bug with not enqueing javascript file
 	* Added feature such that link descriptions are added to the title attribute
 	  (will show up on hover) 
 
-0.2: (2008.12.08)
+* 0.2: (2008.12.08)
   * Can now use as a widget or manually
   * consolidated javascript to work with other collapsing plugins
   * Uses cookies to keep track of which link categories have been expanded /
     collapsed
 
-0.1.4: (2008.10.29)
+* 0.1.4: (2008.10.29)
   * Fixed bug so that multi-word categories are correctly included / excluded
 
 
-0.1.3: (2008.10.29)
+* 0.1.3: (2008.10.29)
   * Now opens links in specified target (blank,top,none)
 
-0.1.2: (2008.10.06)
+* 0.1.2: (2008.10.06)
   * Fixed bug with leaving include/exclude categories blank
   * Added option to animate expanding and collapsing
   * Added option for images instead of text as collapsing symbols
 
-0.1.1:
+* 0.1.1:
   * Changing default title to 'Blogroll'
 
 * 0.1:

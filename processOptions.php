@@ -14,6 +14,7 @@
     $inExclude='include';
     $inExcludeCats='';
     $animate=1;
+    $debug=0;
   } else {
     $title = attribute_escape($options[$number]['title']);
     $showLinkCount = $options[$number]['showLinkCount'];
@@ -26,5 +27,6 @@
     $linkSortOrder = $options[$number]['linkSortOrder'];
     $defaultExpand = $options[$number]['defaultExpand'];
     $animate = $options[$number]['animate'];
+    $debug = $options[$number]['debug'];
   }
 ?>

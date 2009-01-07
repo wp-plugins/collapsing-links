@@ -29,7 +29,7 @@ function collapsLinkWidget($args, $widget_args=1) {
 function collapsLinkWidgetInit() {
 if ( !$options = get_option('collapsLinkOptions') )
     $options = array();
-  $control_ops = array('width' => 400, 'height' => 350, 'id_base' => 'collapsLink');
+  $control_ops = array('width' => 400, 'height' => 350, 'id_base' => 'collapslink');
 	$widget_ops = array('classname' => 'collapsLink', 'description' => __('Links expand and collapse to show sublinks and/or posts'));
   $name = __('Collapsing Links');
 
@@ -38,15 +38,15 @@ if ( !$options = get_option('collapsLinkOptions') )
     // Old widgets can have null values for some reason
     if ( !isset($options[$o]['title']) || !isset($options[$o]['title']) )
       continue;
-    $id = "collapsLink-$o"; // Never never never translate an id
+    $id = "collapslink-$o"; // Never never never translate an id
     wp_register_sidebar_widget($id, $name, 'collapsLinkWidget', $widget_ops, array( 'number' => $o ));
     wp_register_widget_control($id, $name, 'collapsLinkWidgetControl', $control_ops, array( 'number' => $o ));
   }
 
   // If there are none, we register the widget's existance with a generic template
   if ( !$id ) {
-    wp_register_sidebar_widget( 'collapsLink-1', $name, 'collapsLinkWidget', $widget_ops, array( 'number' => -1 ) );
-    wp_register_widget_control( 'collapsLink-1', $name, 'collapsLinkWidgetControl', $control_ops, array( 'number' => -1 ) );
+    wp_register_sidebar_widget( 'collapslink-1', $name, 'collapsLinkWidget', $widget_ops, array( 'number' => -1 ) );
+    wp_register_widget_control( 'collapslink-1', $name, 'collapsLinkWidgetControl', $control_ops, array( 'number' => -1 ) );
   }
 
 }
@@ -100,8 +100,9 @@ if (function_exists('collapsLink')) {
 
     echo '<p style="text-align:right;"><label for="collapsLink-title-'.$number.'">' . __('Title:') . '<input class="widefat" style="width: 200px;" id="collapsLink-title-'.$number.'" name="collapsLink['.$number.'][title]" type="text" value="'.$title.'" /></label></p>';
   include('options.txt');
-    echo $thisLink->style;
   ?>
+  <p>Style can be set from the <a
+  href='options-general.php?page=collapsLink.php'>options page</a></p>
    <?php
     echo '<input type="hidden" id="collapsLink-submit-'.$number.'" name="collapsLink['.$number.'][submit]" value="1" />';
 

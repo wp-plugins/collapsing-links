@@ -136,6 +136,20 @@ function list_links($number) {
   }
   $cats = $wpdb->get_results($catquery);
   $links= $wpdb->get_results($linkquery); 
+
+  if ($debug==1) {
+    echo "<pre style='display:none' >";
+    printf ("MySQL server version: %s\n", mysql_get_server_info());
+    echo "CATEGORY QUERY: \n $catquery\n";
+    echo "\nCATEGORY QUERY RESULTS\n";
+    print_r($cats);
+    echo "LINK QUERY:\n $linkquery\n";
+    echo "\nLINK QUERY RESULTS\n";
+    print_r($links);
+    echo "\ncollapsLink options:\n";
+    print_r($options[$number]);
+    echo "</pre>";
+  }
   $parents=array();
   foreach ($cats as $cat) {
     if ($cat->parent!=0) {

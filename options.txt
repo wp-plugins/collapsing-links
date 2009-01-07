@@ -53,9 +53,8 @@
    'checked'; ?> id="animate-<?php echo $number ?>"></input> <label
    for="animate">Animate collapsing and expanding</label>
    </p>
-   <p>
-<label for="collapsLinkStyle">Style info:</label>
-   <textarea cols='60' rows='6' id="collapsLinkStyle" name="collapsLinkStyle">
-    <?php echo stripslashes(get_option('collapsLinkStyle')) ?>
-   </textarea>
+     <input type="checkbox" name="collapsCat[<?php echo $number ?>][debug]"
+<?php if ($debug=='1')  echo 'checked'; ?> id="collapsCat-debug-<?php echo
+$number ?>"></input> <label for="collapsCatDebug">Show debugging information
+(shows up as a hidden pre right after the title)</label>
     </p>

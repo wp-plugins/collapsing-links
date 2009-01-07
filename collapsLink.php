@@ -38,6 +38,27 @@ add_action('admin_menu', array('collapsLink','setup'));
 class collapsLink {
 
 	function init() {
+    $style="span.collapsLink {border:0;
+padding:0; 
+margin:0; 
+cursor:pointer;
+/* font-family: Monaco, 'Andale Mono', Courier, monospace;*/
+}
+
+#sidebar li.collapsLink:before {content:'';} 
+#sidebar li.collapsLink {list-style-type:none}
+#sidebar li.collapsLinkItem {
+       text-indent:-1em;
+       margin:0 0 0 1em;}
+li.widget.collapsLink ul {margin-left:.5em;}
+#sidebar li.collapsLinkItem:before {content: '\\\\00BB \\\\00A0' !important;} 
+#sidebar li.collapsLink .sym {
+   font-size:1.2em;
+   font-family:Monaco, 'Andale Mono', 'FreeMono', 'Courier new', 'Courier', monospace;
+    padding-right:5px;}";
+    if( function_exists('add_option') ) {
+      update_option( 'collapsLinkOrigStyle', $style);
+    }
     if (!get_option('collapsLinkOptions')) {
       $options=array('%i%' => array(
         'showLinkCount'=> 'yes' ,
@@ -48,32 +69,15 @@ class collapsLink {
         'exclude'=> '' ,
         'expand'=> '0' ,
         'defaultExpand'=> '',
-        'animate' => '1'
+        'animate' => '1',
+        'debug' => '0'
       ));
       if( function_exists('add_option') ) {
         add_option( 'collapsLinkOptions', $options);
       }
-    }
-    $style="span.collapsLink {border:0;
-padding:0; 
-margin:0; 
-cursor:pointer;
-/* font-family: Monaco, 'Andale Mono', Courier, monospace;*/
-}
-
-#sidebar li.collapsLink:before {content:'';} 
-#sidebar li.collapsLink {list-style-type:none}
-#sidebar li.collapsLinkPost {
-       text-indent:-1em;
-       margin:0 0 0 1em;}
-li.widget.collapsLink ul {margin-left:.5em;}
-#sidebar li.collapsLinkItem :before {content: \"\\\\00BB \\\\00A0\" !important;} 
-#sidebar li.collapsLink .sym {
-   font-size:1.2em;
-   font-family:Monaco, 'Andale Mono', 'FreeMono', 'Courier new', 'Courier', monospace;
-    padding-right:5px;}";
-    if( function_exists('add_option') ) {
-      add_option( 'collapsLinkStyle', $style);
+      if( function_exists('add_option') ) {
+        add_option( 'collapsLinkStyle', $style);
+      }
     }
 	}
 

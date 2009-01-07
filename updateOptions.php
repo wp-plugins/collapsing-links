@@ -50,6 +50,10 @@
       if( !isset($widget_collapsLink['animate'])) {
         $animate= 0 ;
       }
+      $debug=0;
+      if (isset($widget_collapsLink['debug'])) {
+        $debug= 1 ;
+      }
       $inExcludeCats=addslashes($widget_collapsLink['inExcludeCats']);
       $defaultExpand=addslashes($widget_collapsLink['defaultExpand']);
       $options[$widget_number] = compact( 'title','showLinkCount','catSort','catSortOrder','defaultExpand','expand','inExclude','inExcludeCats','linkSort','linkSortOrder','animate' );
@@ -57,6 +61,4 @@
 
     update_option('collapsLinkOptions', $options);
     $updated = true;
-    $style=$_POST['collapsLinkStyle'];
-    update_option('collapsLinkStyle', $style);
 ?>
