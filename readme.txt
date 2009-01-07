@@ -5,7 +5,7 @@ Plugin URI: http://blog.robfelty.com/plugins/collapsing-links
 Tags: links, sidebar, widget
 Requires at least: 2.3
 Tested up to: 2.6.5
-Stable tag: 0.2.2
+Stable tag: 0.2.3
 
 This widget uses Javascript to dynamically expand or collapsable the set of
 links for each link category.
