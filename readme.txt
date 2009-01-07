@@ -79,6 +79,7 @@ You can see this on my test blog at http://robfelty.com/test
   * Exclude certain link categories
   * Automatically expand certain link categories
   * Several different icons to choose from for expanding and collapsing
+  * Add nofollow tag
 
 == CAVEAT ==
 
