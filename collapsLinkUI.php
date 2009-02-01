@@ -27,28 +27,24 @@ This file is part of Collapsing Links
 
 check_admin_referer();
 
+$theOptions=get_option('collapsLinkOptions');
+$widgetOn=0;
+$number='%i%';
+if (empty($theOptions)) {
+  $number = '%i%';
+} elseif (!isset($theOptions['%i%']['title']) || 
+    count($theOptions) > 1) {
+  $widgetOn=1; 
+}
 if( isset($_POST['resetOptions']) ) {
   if (isset($_POST['reset'])) {
     delete_option('collapsLinkOptions');   
+		$widgetOn=0;
   }
 } elseif (isset($_POST['infoUpdate'])) {
   $style=$_POST['collapsLinkStyle'];
   update_option('collapsLinkStyle', $style);
-}
-$theOptions=get_option('collapsLinkOptions');
-/*
-echo "<pre>\n";
-print_r($theOptions);
-echo "</pre>\n";
-*/
-if (empty($theOptions)) {
-  $number = -1;
-} elseif (!isset($theOptions['%i%']['title']) || 
-    count($theOptions) > 1) {
-  $widgetOn=1; 
-  //return;
-  $numbers=array_keys($theOptions);
-  $number= $numbers[0];
+	include('updateOptions.php');
 }
 include('processOptions.php');
 ?>

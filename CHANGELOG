@@ -1,5 +1,8 @@
 Collapsing Links Changelog
 
+* 0.2.5 (2009.02.01)
+    * Fixed settings panel
+
 * 0.2.4: (2009.01.07)
     * Added nofollow option
     * Added version to javascript
