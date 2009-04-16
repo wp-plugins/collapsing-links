@@ -23,12 +23,19 @@
      <input type="radio" name="collapsLink[<?php echo $number ?>][linkSortOrder]" <?php if($linkSortOrder=='DESC') echo 'checked'; ?> id="linkPostDESC" value='DESC'></input> <label for="linkPostDESC">Descending</label>
     </p>
     <p>Expanding and collapse characters:<br />
-     html: <input type="radio" name="collapsLink[<?php echo $number ?>][expand]" <?php if($expand==0) echo 'checked'; ?> id="expand0" value='0'></input> <label for="expand0">&#9658;&nbsp;&#9660;</label>
+     <strong>html:</strong> <input type="radio" name="collapsLink[<?php echo $number ?>][expand]" <?php if($expand==0) echo 'checked'; ?> id="expand0" value='0'></input> <label for="expand0">&#9658;&nbsp;&#9660;</label>
      <input type="radio" name="collapsLink[<?php echo $number ?>][expand]" <?php if($expand==1) echo 'checked'; ?> id="expand1" value='1'></input> <label for="expand1">+&nbsp;&mdash;</label>
      <input type="radio" name="collapsLink[<?php echo $number ?>][expand]"
      <?php if($expand==2) echo 'checked'; ?> id="expand2" value='2'></input>
-     <label for="expand2">[+]&nbsp;[&mdash;]</label><br />
-     images:
+     <label for="expand2">[+]&nbsp;[&mdash;]</label>
+     <input type="radio" name="collapsLink[<?php echo $number ?>][expand]"
+     <?php if($expand==4) echo 'checked'; ?> id="expand4" value='4'></input>
+     <label for="expand4">custom</label>
+     expand: 
+     <input type="text" size='2' name="collapsLink[<?php echo $number ?>][customExpand]" value="<?php echo $customExpand ?>" id="collapsLink-customExpand-<?php echo $number ?>"></input> 
+     collapse: 
+     <input type="text" size='2' name="collapsLink[<?php echo $number ?>][customCollapse]" value="<?php echo $customCollapse ?>" id="collapsLink-customCollapse-<?php echo $number ?>"></input> <br />
+     <strong>images:</strong>
      <input type="radio" name="collapsLink[<?php echo $number ?>][expand]"
      <?php if($expand==3) echo 'checked'; ?> id="expand0" value='3'></input>
      <label for="expand3"><img src='<?php echo get_settings('siteurl') .

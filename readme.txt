@@ -5,7 +5,7 @@ Plugin URI: http://blog.robfelty.com/plugins/collapsing-links
 Tags: links, sidebar, widget
 Requires at least: 2.3
 Tested up to: 2.6.5
-Stable tag: 0.2.4
+Stable tag: 0.2.6
 
 This widget uses Javascript to dynamically expand or collapsable the set of
 links for each link category.
@@ -19,6 +19,9 @@ given link category will be expanded.
 You can use multiple instances of the widget, each with its own set of options. In this way you could have one set of links for certain categories one place on your page, and another widget with a different set of links somewhere else.
 
 It is based off of the Collapsing Categories and Collapsing Pages plugins.
+
+= What's new in 0.2.6? =
+* Added option to use custom symbols
 
 == Installation ==
 
@@ -93,6 +96,12 @@ database, which includes both visible and invisible links. If you have
 invisible links, this number will be wrong.
 
 == HISTORY ==
+
+* 0.2.6 (2009.04.16)
+    * Added option to use custom symbols
+
+* 0.2.5 (2009.02.01)
+    * Fixed settings panel
 
 * 0.2.4: (2009.01.07)
     * Added nofollow option

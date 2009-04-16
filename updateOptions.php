@@ -42,6 +42,8 @@
         $linkSortOrder= '' ;
       }
       $expand= $widget_collapsLink['expand'];
+      $customExpand= $widget_collapsLink['customExpand'];
+      $customCollapse= $widget_collapsLink['customCollapse'];
       $inExclude= 'include' ;
       if($widget_collapsLink['inExclude'] == 'exclude') {
         $inExclude= 'exclude' ;
@@ -63,7 +65,7 @@
       $options[$widget_number] = compact(
           'title','showLinkCount','catSort','catSortOrder','defaultExpand',
           'expand','inExclude','inExcludeCats','linkSort','linkSortOrder',
-          'animate', 'debug', 'nofollow');
+          'animate', 'debug', 'nofollow', 'customExpand', 'customCollapse');
     }
 
     update_option('collapsLinkOptions', $options);

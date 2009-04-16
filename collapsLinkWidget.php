@@ -29,7 +29,7 @@ function collapsLinkWidget($args, $widget_args=1) {
 function collapsLinkWidgetInit() {
 if ( !$options = get_option('collapsLinkOptions') )
     $options = array();
-  $control_ops = array('width' => 400, 'height' => 350, 'id_base' => 'collapslink');
+  $control_ops = array('width' => 450, 'height' => 350, 'id_base' => 'collapslink');
 	$widget_ops = array('classname' => 'collapsLink', 'description' => __('Links expand and collapse to show sublinks and/or posts'));
   $name = __('Collapsing Links');
 

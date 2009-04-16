@@ -1,6 +1,6 @@
 <?php
 /*
-Collapsing Links version: 0.2.4
+Collapsing Links version: 0.2.6
 Copyright 2007 Robert Felty
 
 This work is largely based on the Fancy Links plugin by Andrew Rader
@@ -44,7 +44,9 @@ if( isset($_POST['resetOptions']) ) {
 } elseif (isset($_POST['infoUpdate'])) {
   $style=$_POST['collapsLinkStyle'];
   update_option('collapsLinkStyle', $style);
-	include('updateOptions.php');
+  if ($widgetOn==0) {
+		include('updateOptions.php');
+  }
 }
 include('processOptions.php');
 ?>

@@ -11,15 +11,19 @@
     $defaultExpand='';
     $number = '%i%';
     $expand='1';
+    $customExpand='';
+    $customCollapse='';
     $inExclude='include';
     $inExcludeCats='';
-    $animate=1;
+    $animate=0;
     $nofollow=1;
     $debug=0;
   } else {
     $title = attribute_escape($options[$number]['title']);
     $showLinkCount = $options[$number]['showLinkCount'];
     $expand = $options[$number]['expand'];
+    $customExpand = $options[$number]['customExpand'];
+    $customCollapse = $options[$number]['customCollapse'];
     $inExcludeCats = $options[$number]['inExcludeCats'];
     $inExclude = $options[$number]['inExclude'];
     $catSort = $options[$number]['catSort'];

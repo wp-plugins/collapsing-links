@@ -1,6 +1,6 @@
 <?php
 /*
-Collapsing Links version: 0.2.4
+Collapsing Links version: 0.2.6
 Copyright 2007 Robert Felty
 
 This work is largely based on the Collapsing Links plugin by Andrew Rader
@@ -47,9 +47,19 @@ function list_links($number) {
     $collapseSym="<img src='". get_settings('siteurl') .
          "/wp-content/plugins/collapsing-links/" . 
          "img/collapse.gif' alt='collapse' />";
+  } elseif ($expand==4) {
+    $expandSym=htmlentities($customExpand);
+    $collapseSym=htmlentities($customCollapse);
   } else {
     $expandSym='►';
     $collapseSym='▼';
+  }
+  if ($expand==3) {
+    $expandSymJS='expandImg';
+    $collapseSymJS='collapseImg';
+  } else {
+    $expandSymJS=$expandSym;
+    $collapseSymJS=$collapseSym;
   }
 	$inExclusions = '';
 	if ( !empty($inExcludeCats) ) {
@@ -176,9 +186,13 @@ function list_links($number) {
     $theCount=$cat->count;
     if ($theCount>0) {
         if ($expanded=='block') {
-          print( "      <li class='collapsLink'><span title='click to collapse' class='collapsLink hide' onclick='expandCollapse(event, $expand, $animate, \"collapsLink\"); return false'><span class='sym'>$collapseSym</span>" );
+          print( "      <li class='collapsLink'><span title='click to
+          collapse' class='collapsLink hide' onclick='expandCollapse(event,
+          \"$expandSymJS\", \"$collapseSymJS\", $animate, \"collapsLink\"); return false'><span class='sym'>$collapseSym</span>" );
         } else {
-          print( "      <li class='collapsLink'><span title='click to expand' class='collapsLink show' onclick='expandCollapse(event, $expand, $animate, \"collapsLink\"); return false'><span class='sym'>$expandSym</span> " );
+          print( "      <li class='collapsLink'><span title='click to expand'
+          class='collapsLink show' onclick='expandCollapse(event,
+          \"$expandSymJS\", \"$collapseSymJS\", $animate, \"collapsLink\"); return false'><span class='sym'>$expandSym</span> " );
         }
       if( $showLinkCount=='yes') {
         if ($taxonomy==true) {
