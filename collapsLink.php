@@ -30,7 +30,7 @@ This file is part of Collapsing Links
 $url = get_settings('siteurl');
 if (!is_admin()) {
   add_action('wp_head', wp_enqueue_script('collapsFunctions',
-  "$url/wp-content/plugins/collapsing-links/collapsFunctions.js", '', '1.1'));
+  "$url/wp-content/plugins/collapsing-links/collapsFunctions.js", '', '1.2'));
   add_action('wp_head', wp_enqueue_script('scriptaculous-effects'));
   add_action( 'wp_head', array('collapsLink','get_head'));
   add_action( 'wp_footer', array('collapsLink','get_foot'));
