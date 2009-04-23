@@ -29,11 +29,24 @@ This file is part of Collapsing Links
 
 /* the linkegory and tagging database structures changed drastically between wordpress 2.1 and 2.3. We will use different queries for linkegory based vs. term_taxonomy based database structures */
 //$taxonomy=false;
-function list_links($number) {
+function list_links($args='') {
   global $wpdb;
 
-  $options=get_option('collapsLinkOptions');
-  extract($options[$number]);
+  $defaults=array(
+    'showLinkCount'=> true ,
+    'catSort'=> 'linkName' ,
+    'catSortOrder'=> 'ASC' ,
+    'linkSort'=> 'linkName' ,
+    'linkSortOrder'=> 'ASC' ,
+    'exclude'=> '' ,
+    'expand'=> false ,
+    'defaultExpand'=> '',
+    'animate' => 0,
+    'falsefollow' => true,
+    'debug' => false
+  );
+  $options=wp_parse_args($args, $defaults);
+  extract($options);
   if ($expand==1) {
     $expandSym='+';
     $collapseSym='—';
@@ -194,7 +207,7 @@ function list_links($number) {
           class='collapsLink show' onclick='expandCollapse(event,
           \"$expandSymJS\", \"$collapseSymJS\", $animate, \"collapsLink\"); return false'><span class='sym'>$expandSym</span> " );
         }
-      if( $showLinkCount=='yes') {
+      if($showLinkCount){
         if ($taxonomy==true) {
           $heading .= ' (' . $theCount.')';
         }

@@ -62,23 +62,7 @@ li.widget.collapsLink ul {margin-left:.5em;}
     if( function_exists('add_option') ) {
       update_option( 'collapsLinkOrigStyle', $style);
     }
-    if (!get_option('collapsLinkOptions')) {
-      $options=array('%i%' => array(
-        'showLinkCount'=> 'yes' ,
-        'catSort'=> 'linkName' ,
-        'catSortOrder'=> 'ASC' ,
-        'linkSort'=> 'linkName' ,
-        'linkSortOrder'=> 'ASC' ,
-        'exclude'=> '' ,
-        'expand'=> '0' ,
-        'defaultExpand'=> '',
-        'animate' => '0',
-        'nofollow' => '1',
-        'debug' => '0'
-      ));
-      if( function_exists('add_option') ) {
-        add_option( 'collapsLinkOptions', $options);
-      }
+    if (!get_option('collapsLinkStyle')) {
       if( function_exists('add_option') ) {
         add_option( 'collapsLinkStyle', $style);
       }

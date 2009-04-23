@@ -27,28 +27,14 @@ This file is part of Collapsing Links
 
 check_admin_referer();
 
-$theOptions=get_option('collapsLinkOptions');
-$widgetOn=0;
-$number='%i%';
-if (empty($theOptions)) {
-  $number = '%i%';
-} elseif (!isset($theOptions['%i%']['title']) || 
-    count($theOptions) > 1) {
-  $widgetOn=1; 
-}
-if( isset($_POST['resetOptions']) ) {
-  if (isset($_POST['reset'])) {
-    delete_option('collapsLinkOptions');   
-		$widgetOn=0;
-  }
-} elseif (isset($_POST['infoUpdate'])) {
+if (isset($_POST['infoUpdate'])) {
   $style=$_POST['collapsLinkStyle'];
   update_option('collapsLinkStyle', $style);
   if ($widgetOn==0) {
 		include('updateOptions.php');
   }
 }
-include('processOptions.php');
+//include('processOptions.php');
 ?>
 <div class=wrap>
  <form method="post">
@@ -56,29 +42,6 @@ include('processOptions.php');
   <fieldset name="Collapsing Links Options">
    <legend><?php _e('Display Options:'); ?></legend>
    <ul style="list-style-type: none;">
-   <?php
-   if ($widgetOn==1) {
-     echo "
-    <div style='width:60em; background:#FFF; color:#444;border: 1px solid
-    #444;padding:0 1em'>
-    <p>If you wish to use the collapsing categories plugin as a widget, you
-    should set the options in the widget page (except for custom styling,
-    which is set here). If you would like to use it manually (that is, you
-    modify your theme), then click below to delete the current widget options.
-    </p>
-    <form method='post'>
-    <p>
-       <input type='hidden' name='reset' value='true' />
-       <input type='submit' name='resetOptions' value='reset options' />
-       </p>
-    </form>
-    </div>
-    ";
-    } else {
-     echo '<p style="text-align:left;"><label for="collapsLink-title-'.$number.'">' . __('Title:') . '<input class="widefat" style="width: 200px;" id="collapsLink-title-'.$number.'" name="collapsLink['.$number.'][title]" type="text" value="'.$title.'" /></label></p>';
-     include('options.txt'); 
-   }
-   ?>
     <p>
   <input type='hidden' id='collapsLinkOrigStyle' value="<?php echo
 stripslashes(get_option('collapsLinkOrigStyle')) ?>" />

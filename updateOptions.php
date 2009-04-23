@@ -1,73 +1,71 @@
 <?php
-    foreach ( (array) $_POST['collapsLink'] as $widget_number => $widget_collapsLink ) {
-      if ( !isset($widget_collapsLink['title']) && isset($options[$widget_number]) ) // user clicked cancel
-        continue;
-      $title = strip_tags(stripslashes($widget_collapsLink['title']));
-      $showLinkCount= 'no' ;
-      if( isset($widget_collapsLink['showLinkCount']) ) {
-        $showLinkCount= 'yes' ;
+//      if ( !isset($new_instance['title']) && isset($options[$widget_number]) ) // user clicked cancel
+ //       continue;
+      $title = strip_tags(stripslashes($new_instance['title']));
+      $showLinkCount= false ;
+      if( isset($new_instance['showLinkCount']) ) {
+        $showLinkCount= true ;
       }  
       $catSortOrder= 'ASC' ;
-      if($widget_collapsLink['catSortOrder'] == 'DESC') {
+      if($new_instance['catSortOrder'] == 'DESC') {
         $catSortOrder= 'DESC' ;
       }
-      if($widget_collapsLink['catSort'] == 'linkName') {
+      if($new_instance['catSort'] == 'linkName') {
         $catSort= 'linkName' ;
-      } elseif ($widget_collapsLink['catSort'] == 'linkId') {
+      } elseif ($new_instance['catSort'] == 'linkId') {
         $catSort= 'linkId' ;
-      } elseif ($widget_collapsLink['catSort'] == 'linkSlug') {
+      } elseif ($new_instance['catSort'] == 'linkSlug') {
         $catSort= 'linkSlug' ;
-      } elseif ($widget_collapsLink['catSort'] == 'linkOrder') {
+      } elseif ($new_instance['catSort'] == 'linkOrder') {
         $catSort= 'linkOrder' ;
-      } elseif ($widget_collapsLink['catSort'] == 'linkCount') {
+      } elseif ($new_instance['catSort'] == 'linkCount') {
         $catSort= 'linkCount' ;
-      } elseif ($widget_collapsLink['catSort'] == '') {
+      } elseif ($new_instance['catSort'] == '') {
         $catSort= '' ;
         $catSortOrder= '' ;
       }
       $linkSortOrder= 'ASC' ;
-      if($widget_collapsLink['linkSortOrder'] == 'DESC') {
+      if($new_instance['linkSortOrder'] == 'DESC') {
         $linkSortOrder= 'DESC' ;
       }
-      if($widget_collapsLink['linkSort'] == 'linkName') {
+      if($new_instance['linkSort'] == 'linkName') {
         $linkSort= 'linkName' ;
-      } elseif ($widget_collapsLink['linkSort'] == 'linkId') {
+      } elseif ($new_instance['linkSort'] == 'linkId') {
         $linkSort= 'linkId' ;
-      } elseif ($widget_collapsLink['linkSort'] == 'linkRating') {
+      } elseif ($new_instance['linkSort'] == 'linkRating') {
         $linkSort= 'linkRating' ;
-      } elseif ($widget_collapsLink['linkSort'] == 'linkUrl') {
+      } elseif ($new_instance['linkSort'] == 'linkUrl') {
         $linkSort= 'linkUrl' ;
-      } elseif ($widget_collapsLink['linkSort'] == '') {
+      } elseif ($new_instance['linkSort'] == '') {
         $linkSort= '' ;
         $linkSortOrder= '' ;
       }
-      $expand= $widget_collapsLink['expand'];
-      $customExpand= $widget_collapsLink['customExpand'];
-      $customCollapse= $widget_collapsLink['customCollapse'];
+      $expand= $new_instance['expand'];
+      $customExpand= $new_instance['customExpand'];
+      $customCollapse= $new_instance['customCollapse'];
       $inExclude= 'include' ;
-      if($widget_collapsLink['inExclude'] == 'exclude') {
+      if($new_instance['inExclude'] == 'exclude') {
         $inExclude= 'exclude' ;
       }
-      $animate=1;
-      if( !isset($widget_collapsLink['animate'])) {
-        $animate= 0 ;
+      $animate=0;
+      if( isset($new_instance['animate'])) {
+        $animate= 1 ;
       }
       $nofollow=1;
-      if( !isset($widget_collapsLink['nofollow'])) {
+      if( !isset($new_instance['nofollow'])) {
         $nofollow= 0 ;
       }
       $debug=0;
-      if (isset($widget_collapsLink['debug'])) {
+      if (isset($new_instance['debug'])) {
         $debug= 1 ;
       }
-      $inExcludeCats=addslashes($widget_collapsLink['inExcludeCats']);
-      $defaultExpand=addslashes($widget_collapsLink['defaultExpand']);
-      $options[$widget_number] = compact(
+      $inExcludeCats=addslashes($new_instance['inExcludeCats']);
+      $defaultExpand=addslashes($new_instance['defaultExpand']);
+      $instance = compact(
           'title','showLinkCount','catSort','catSortOrder','defaultExpand',
           'expand','inExclude','inExcludeCats','linkSort','linkSortOrder',
           'animate', 'debug', 'nofollow', 'customExpand', 'customCollapse');
-    }
 
-    update_option('collapsLinkOptions', $options);
-    $updated = true;
+    //update_option('collapsLinkOptions', $options);
+    //$updated = true;
 ?>

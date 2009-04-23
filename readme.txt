@@ -20,8 +20,11 @@ You can use multiple instances of the widget, each with its own set of options. 
 
 It is based off of the Collapsing Categories and Collapsing Pages plugins.
 
-= What's new in 0.2.6? =
-* Added option to use custom symbols
+= What's new in 0.3.alpha? =
+* Widget is compatible with wordpress 2.8 (not backwards compatible with 2.7
+  and previous)
+* Can now add parameters to the collapsLink function if you choose not to use
+  the widget
 
 == Installation ==
 
@@ -32,7 +35,7 @@ Unpackage contents to wp-content/plugins/ so that the files are in a
 collapsing-links directory. Activate the plugin in your Wordpress Admin
 interface -- Collapsing Links. 
 
-MANUAL INSTALLATION
+= MANUAL INSTALLATION = 
 
 To use the plugin manually,
 change the following here appropriate (most likely sidebar.php):
@@ -47,7 +50,7 @@ To something of the following:
 `
     <?php
      if( function_exists('collapsLink') ) {
-      collapsLink('%i%');
+      collapsLink();
      } else {
       echo "<ul>\n";
       get_links_list();
@@ -55,7 +58,10 @@ To something of the following:
      }
     ?>
 `
-WIDGET INSTALLATION
+You can add parameters to the collapsLink() function as described in the
+options section.
+ 
+= WIDGET INSTALLATION = 
 
 simply go the Presentation > Widgets section and drag over the Collapsing Links Widget.
 
@@ -69,6 +75,27 @@ None yet.
 widget
 2. available options 
 
+== Options ==
+Style options can be set via the settings panel. All other options can be set
+from the widget panel. If you wish to insert the code into your theme manually
+instead of using a widget, you can use the following options. These options
+can be given to the `collapsLink()` function either as an array or in query
+style, in the same manner as the `wp_list_links` function.
+`
+  $defaults=array(
+    'showLinkCount'=> true ,
+    'catSort'=> 'linkName' ,
+    'catSortOrder'=> 'ASC' ,
+    'linkSort'=> 'linkName' ,
+    'linkSortOrder'=> 'ASC' ,
+    'exclude'=> '' ,
+    'expand'=> false ,
+    'defaultExpand'=> '',
+    'animate' => 0,
+    'falsefollow' => true,
+    'debug' => false
+  );
+`
 == Demo ==
 
 You can see this on my test blog at http://robfelty.com/test
@@ -96,6 +123,12 @@ database, which includes both visible and invisible links. If you have
 invisible links, this number will be wrong.
 
 == HISTORY ==
+
+* 0.3.alpha (2009.04.22)
+  * Widget is compatible with wordpress 2.8 (not backwards compatible with 2.7
+    and previous)
+  * Can now add parameters to the collapsLink function if you choose not to use
+    the widget
 
 * 0.2.6 (2009.04.16)
     * Added option to use custom symbols

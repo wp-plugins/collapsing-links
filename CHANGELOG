@@ -1,5 +1,12 @@
 Collapsing Links Changelog
 
+* 0.3.alpha (2009.04.22)
+  * Widget is compatible with wordpress 2.8 (not backwards compatible with 2.7
+    and previous)
+  * Can now add parameters to the collapsLink function if you choose not to use
+    the widget
+  * Fixed bug with mdash
+
 * 0.2.7 (2009.04.17)
     * Fixed bug with triangle
 
