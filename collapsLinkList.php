@@ -1,6 +1,6 @@
 <?php
 /*
-Collapsing Links version: 0.2.7
+Collapsing Links version: 0.3.alpha
 Copyright 2007 Robert Felty
 
 This work is largely based on the Collapsing Links plugin by Andrew Rader
@@ -32,19 +32,7 @@ This file is part of Collapsing Links
 function list_links($args='') {
   global $wpdb;
 
-  $defaults=array(
-    'showLinkCount'=> true ,
-    'catSort'=> 'linkName' ,
-    'catSortOrder'=> 'ASC' ,
-    'linkSort'=> 'linkName' ,
-    'linkSortOrder'=> 'ASC' ,
-    'exclude'=> '' ,
-    'expand'=> false ,
-    'defaultExpand'=> '',
-    'animate' => 0,
-    'falsefollow' => true,
-    'debug' => false
-  );
+  include('defaults.php');
   $options=wp_parse_args($args, $defaults);
   extract($options);
   if ($expand==1) {
@@ -108,15 +96,15 @@ function list_links($args='') {
     $isPage="AND $wpdb->links.link_type='link'";
   }
   if ($catSort!='') {
-    if ($catSort=='linkName') {
+    if ($catSort=='catName') {
       $catSortColumn="ORDER BY $wpdb->terms.name";
-    } elseif ($catSort=='linkId') {
+    } elseif ($catSort=='catId') {
       $catSortColumn="ORDER BY $wpdb->terms.term_id";
-    } elseif ($catSort=='linkSlug') {
+    } elseif ($catSort=='catSlug') {
       $catSortColumn="ORDER BY $wpdb->terms.slug";
-    } elseif ($catSort=='linkOrder') {
+    } elseif ($catSort=='catOrder') {
       $catSortColumn="ORDER BY $wpdb->terms.term_order";
-    } elseif ($catSort=='linkCount') {
+    } elseif ($catSort=='catCount') {
       $catSortColumn="ORDER BY $wpdb->term_taxonomy.count";
     }
     $catSortOrder = $catSortOrder;
