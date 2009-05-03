@@ -1,7 +1,7 @@
 <?php
   $defaults=array(
     'showLinkCount'=> true ,
-    'catSort'=> 'linkName' ,
+    'catSort'=> 'catName' ,
     'catSortOrder'=> 'ASC' ,
     'linkSort'=> 'linkName' ,
     'linkSortOrder'=> 'ASC' ,
