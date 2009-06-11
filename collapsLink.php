@@ -4,7 +4,7 @@ Plugin Name: Collapsing Links
 Plugin URI: http://blog.robfelty.com/plugins/collapsing-links
 Description: Uses javascript to expand and collapse links to show the posts that belong to the link category 
 Author: Robert Felty
-Version: 0.3.alpha
+Version: 0.3.beta
 Author URI: http://robfelty.com
 Tags: sidebar, widget, links, blogroll, navigation, collapsing, collapsible
 

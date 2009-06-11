@@ -1,6 +1,6 @@
 <?php
 /*
-Collapsing Links version: 0.3.alpha
+Collapsing Links version: 0.3.beta
 Copyright 2007 Robert Felty
 
 This work is largely based on the Collapsing Links plugin by Andrew Rader
