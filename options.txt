@@ -3,11 +3,11 @@
     </p>
     <p>Sort Link Categories by:<br />
      <select name="<?php echo $this->get_field_name('catSort'); ?>">
-     <option <?php if($catSort=='linkName') echo 'selected'; ?> id="sortLinkName" value='linkName'>Link category name</option>
-     <option <?php if($catSort=='linkId') echo 'selected'; ?> id="sortLinkId" value='linkId'>Link category id</option>
-     <option <?php if($catSort=='linkSlug') echo 'selected'; ?> id="sortLinkSlug" value='linkSlug'>Link category Slug</option>
-     <option <?php if($catSort=='linkOrder') echo 'selected'; ?> id="sortLinkOrder" value='linkOrder'>Link category (term) Order</option>
-     <option <?php if($catSort=='linkCount') echo 'selected'; ?> id="sortLinkCount" value='linkCount'>Link category Count</option>
+     <option <?php if($catSort=='catName') echo 'selected'; ?> id="sortCatName" value='catName'>Link category name</option>
+     <option <?php if($catSort=='catId') echo 'selected'; ?> id="sortCatId" value='catId'>Link category id</option>
+     <option <?php if($catSort=='catSlug') echo 'selected'; ?> id="sortCatSlug" value='catSlug'>Link category Slug</option>
+     <option <?php if($catSort=='catOrder') echo 'selected'; ?> id="sortCatOrder" value='catOrder'>Link category (term) Order</option>
+     <option <?php if($catSort=='catCount') echo 'selected'; ?> id="sortCatCount" value='catCount'>Link category Count</option>
     </select>
      <input type="radio" name="<?php echo $this->get_field_name('catSortOrder'); ?>" <?php if($catSortOrder=='ASC') echo 'checked'; ?> id="<?php echo $this->get_field_id('catSortASC') ?>" value='ASC'></input> <label for="<?php echo $this->get_field_id('catSortASC'); ?>">Ascending</label>
      <input type="radio" name="<?php echo $this->get_field_name('catSortOrder'); ?>" <?php if($catSortOrder=='DESC') echo 'checked'; ?> id="<?php echo $this->get_field_id('catSortDESC') ?>" value='DESC'></input> <label for="<?php echo $this->get_field_id('catSortDESC'); ?>">Descending</label>

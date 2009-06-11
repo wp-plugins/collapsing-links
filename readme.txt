@@ -3,8 +3,8 @@ Contributors: robfelty
 Donate link: http://blog.robfelty.com/plugins/collapsing-links
 Plugin URI: http://blog.robfelty.com/plugins/collapsing-links
 Tags: links, sidebar, widget
-Requires at least: 2.3
-Tested up to: 2.6.5
+Requires at least: 2.8
+Tested up to: 2.8
 Stable tag: 0.2.7
 
 This widget uses Javascript to dynamically expand or collapsable the set of
@@ -24,7 +24,7 @@ It is based off of the Collapsing Categories and Collapsing Pages plugins.
 * Widget is compatible with wordpress 2.8 (not backwards compatible with 2.7
   and previous)
 * Can now add parameters to the collapsLink function if you choose not to use
-  the widget
+  the widget (see options section below)
 
 == Installation ==
 
@@ -88,28 +88,90 @@ style, in the same manner as the `wp_list_links` function.
     'catSortOrder'=> 'ASC' ,
     'linkSort'=> 'linkName' ,
     'linkSortOrder'=> 'ASC' ,
-    'exclude'=> '' ,
-    'expand'=> false ,
+    'inExclude'=> 'exclude' ,
+    'inExcludeCats'=> '' ,
+    'expand'=> 0 ,
+    'customExpand' => '',
+    'customCollapse' => '',
     'defaultExpand'=> '',
     'animate' => 0,
-    'falsefollow' => true,
+    'nofollow' => true,
     'debug' => false
   );
 `
+* showLinkCount
+    *  When true, the number of links in the category will be shown in
+       parentheses following the name of the link category
+* catSort
+    * The order in which link categories should be sorted. Possible values:
+        * 'catName' the name of the link category (default)
+        * 'catId' the id of the link category
+        * 'catSlug' the slug of the link category
+        * 'catOrder' custom order specified in the links options
+        * 'catCount' the number of links in each category
+* linkSort
+    * The order in which link linkegories should be sorted. Possible values:
+        * 'linkName' the name of the link (default)
+        * 'linkId' the id of the link 
+        * 'linkUrl' the url of the link 
+        * 'linkRating' the rating  assigned to the link
+* catSortOrder
+    * Whether categories should be sorted in normal or reverse order. Possible
+      values:
+        * 'ASC' normal order (a-z, 0-9) (default)
+        * 'DESC' reverse order (z-a, 9-0)
+* linkSortOrder
+    * Whether link should be sorted in normal or reverse order. Possible values:
+        * 'ASC' normal order (a-z, 0-9) (default)
+        * 'DESC' reverse order (z-a, 9-0)
+* inExclude
+    * Whether to include or exclude certain categories 
+        * 'exclude' (default) 
+        * 'include'
+* inExcludeCats
+    * The link categories which should be included or excluded
+* expand
+    * The symbols to be used to mark expanding and collapsing. Possible values:
+        * '0' Triangles (default)
+        * '1' + -
+        * '2' [+] [-]
+        * '3' images (you can upload your own if you wish)
+        * '4' custom symbols
+* customExpand
+    * If you have selected '4' for the expand option, this character will be
+      used to mark expandable link categories
+* customCollapse
+    * If you have selected '4' for the expand option, this character will be
+      used to mark collapsible link categories
+ 
+* defaultExpand
+    * A comma separated list of link category IDs or Slugs which should be
+      expanded by default
+* animate
+    * When set to true, collapsing and expanding will be animated
+* nofollow
+    * When set to true (default), rel='nofollow' tags will be added to links
+* debug
+    * When set to true, extra debugging information will be displayed in the
+      underlying code of your page (but not visible from the browser). Use
+      this option if you are having problems
+
+= Examples =
+
+`collapsLink('animate=true&nofollow=false&expand=3,inExcludeCats=blogroll,lousy-friends')`
+This will produce a list with:
+* animation on
+* no nofollow tags
+* using images to mark collapsing and expanding
+* exclude links in the categories blogroll and lousy-friends
+
+
+
+
 == Demo ==
 
 You can see this on my test blog at http://robfelty.com/test
 
-
-== OPTIONS AND CONFIGURATIONS ==
-
-  * Show link counts in link category links
-  * Sort by link category name, link category id, link category count etc.
-  * Sort in ascending or descending order
-  * Exclude certain link categories
-  * Automatically expand certain link categories
-  * Several different icons to choose from for expanding and collapsing
-  * Add nofollow tag
 
 == CAVEAT ==
 

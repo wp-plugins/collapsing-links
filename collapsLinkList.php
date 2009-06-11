@@ -1,6 +1,6 @@
 <?php
 /*
-Collapsing Links version: 0.2.7
+Collapsing Links version: 0.3.alpha
 Copyright 2007 Robert Felty
 
 This work is largely based on the Collapsing Links plugin by Andrew Rader
@@ -27,24 +27,10 @@ This file is part of Collapsing Links
 
 // Helper functions
 
-/* the linkegory and tagging database structures changed drastically between wordpress 2.1 and 2.3. We will use different queries for linkegory based vs. term_taxonomy based database structures */
-//$taxonomy=false;
 function list_links($args='') {
   global $wpdb;
 
-  $defaults=array(
-    'showLinkCount'=> true ,
-    'catSort'=> 'linkName' ,
-    'catSortOrder'=> 'ASC' ,
-    'linkSort'=> 'linkName' ,
-    'linkSortOrder'=> 'ASC' ,
-    'exclude'=> '' ,
-    'expand'=> false ,
-    'defaultExpand'=> '',
-    'animate' => 0,
-    'falsefollow' => true,
-    'debug' => false
-  );
+  include('defaults.php');
   $options=wp_parse_args($args, $defaults);
   extract($options);
   if ($expand==1) {
@@ -98,25 +84,20 @@ function list_links($args='') {
     $inExcludeQuery ="AND $wpdb->terms.slug $in ($inExclusions)";
   }
 
-  $taxonomy=true;
-  $tables = $wpdb->query("show tables like '$wpdb->term_relationships'"); 
-  if ($tables==0) {
-    $taxonomy=false;
-  }
   $isPage='';
   if (get_option('collapsLinkIncludePages'=='no')) {
     $isPage="AND $wpdb->links.link_type='link'";
   }
   if ($catSort!='') {
-    if ($catSort=='linkName') {
+    if ($catSort=='catName') {
       $catSortColumn="ORDER BY $wpdb->terms.name";
-    } elseif ($catSort=='linkId') {
+    } elseif ($catSort=='catId') {
       $catSortColumn="ORDER BY $wpdb->terms.term_id";
-    } elseif ($catSort=='linkSlug') {
+    } elseif ($catSort=='catSlug') {
       $catSortColumn="ORDER BY $wpdb->terms.slug";
-    } elseif ($catSort=='linkOrder') {
+    } elseif ($catSort=='catOrder') {
       $catSortColumn="ORDER BY $wpdb->terms.term_order";
-    } elseif ($catSort=='linkCount') {
+    } elseif ($catSort=='catCount') {
       $catSortColumn="ORDER BY $wpdb->term_taxonomy.count";
     }
     $catSortOrder = $catSortOrder;
@@ -139,29 +120,28 @@ function list_links($args='') {
 	  $autoExpand = array();
   }
 
-  echo "\n    <ul id='collapsLinkList-$number'>\n";
+  echo "\n    <ul class='collapsLinkList'>\n";
 
-  if ($taxonomy==true) {
-    $catquery = "SELECT $wpdb->term_taxonomy.count as 'count',
-			$wpdb->terms.term_id, $wpdb->terms.name, $wpdb->terms.slug,
-			$wpdb->term_taxonomy.parent, $wpdb->term_taxonomy.description FROM
-			$wpdb->terms, $wpdb->term_taxonomy WHERE $wpdb->terms.term_id =
-			$wpdb->term_taxonomy.term_id  AND
-			$wpdb->term_taxonomy.taxonomy = 'link_category' $inExcludeQuery
-      $catSortColumn $catSortOrder";
-    $linkquery="SELECT * FROM $wpdb->links l
-        inner join $wpdb->term_relationships tr on l.link_id = tr.object_id
-        inner join $wpdb->term_taxonomy tt on 
-        tt.term_taxonomy_id = tr.term_taxonomy_id 
-        inner join $wpdb->terms t on t.term_id = tt.term_id 
-        WHERE tt.taxonomy='link_category' AND l.link_visible='Y' 
-        $linkSortColumn $linkSortOrder";
-  }
+  $catquery = "SELECT $wpdb->term_taxonomy.count as 'count',
+    $wpdb->terms.term_id, $wpdb->terms.name, $wpdb->terms.slug,
+    $wpdb->term_taxonomy.parent, $wpdb->term_taxonomy.description FROM
+    $wpdb->terms, $wpdb->term_taxonomy WHERE $wpdb->terms.term_id =
+    $wpdb->term_taxonomy.term_id  AND
+    $wpdb->term_taxonomy.taxonomy = 'link_category' $inExcludeQuery
+    $catSortColumn $catSortOrder";
+  $linkquery="SELECT * FROM $wpdb->links l
+      inner join $wpdb->term_relationships tr on l.link_id = tr.object_id
+      inner join $wpdb->term_taxonomy tt on 
+      tt.term_taxonomy_id = tr.term_taxonomy_id 
+      inner join $wpdb->terms t on t.term_id = tt.term_id 
+      WHERE tt.taxonomy='link_category' AND l.link_visible='Y' 
+      $linkSortColumn $linkSortOrder";
   $cats = $wpdb->get_results($catquery);
   $links= $wpdb->get_results($linkquery); 
 
   if ($debug==1) {
     echo "<pre style='display:none' >";
+    echo "catsort = $catSort\n";
     printf ("MySQL server version: %s\n", mysql_get_server_info());
     echo "CATEGORY QUERY: \n $catquery\n";
     echo "\nCATEGORY QUERY RESULTS\n";
@@ -200,17 +180,15 @@ function list_links($args='') {
     if ($theCount>0) {
         if ($expanded=='block') {
           print( "      <li class='collapsLink'><span title='click to
-          collapse' class='collapsLink hide' onclick='expandCollapse(event,
+          collapse' class='collapsLink expand' onclick='expandCollapse(event,
           \"$expandSymJS\", \"$collapseSymJS\", $animate, \"collapsLink\"); return false'><span class='sym'>$collapseSym</span>" );
         } else {
           print( "      <li class='collapsLink'><span title='click to expand'
-          class='collapsLink show' onclick='expandCollapse(event,
+          class='collapsLink expand' onclick='expandCollapse(event,
           \"$expandSymJS\", \"$collapseSymJS\", $animate, \"collapsLink\"); return false'><span class='sym'>$expandSym</span> " );
         }
       if($showLinkCount){
-        if ($taxonomy==true) {
-          $heading .= ' (' . $theCount.')';
-        }
+        $heading .= ' (' . $theCount.')';
       }
         print( $heading ."</span>\n");
       // Now print out the link info
@@ -243,4 +221,21 @@ function list_links($args='') {
   }
   echo "    </ul> <!-- ending collapsLink -->\n";
 }
+		echo "<script type=\"text/javascript\">\n";
+		echo "// <![CDATA[\n";
+		echo "// These variables are part of the Collapsing Links Plugin version: 0.3.alpha\n// Copyright 2007 Robert Felty (robfelty.com)\n";
+    $expandSym="<img src='". get_settings('siteurl') .
+         "/wp-content/plugins/collapsing-links/" . 
+         "img/expand.gif' alt='expand' />";
+    $collapseSym="<img src='". get_settings('siteurl') .
+         "/wp-content/plugins/collapsing-links/" . 
+         "img/collapse.gif' alt='collapse' />";
+    echo "var expandSym=\"$expandSym\";\n";
+    echo "var collapseSym=\"$collapseSym\";\n";
+    echo"
+    collapsAddLoadEvent(function() {
+      autoExpandCollapse('collapsLink');
+    });
+    ";
+		echo "// ]]>\n</script>\n";
 ?>

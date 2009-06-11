@@ -4,9 +4,9 @@ Plugin Name: Collapsing Links
 Plugin URI: http://blog.robfelty.com/plugins/collapsing-links
 Description: Uses javascript to expand and collapse links to show the posts that belong to the link category 
 Author: Robert Felty
-Version: 0.2.7
+Version: 0.3.alpha
 Author URI: http://robfelty.com
-Tags: sidebar, widget, links
+Tags: sidebar, widget, links, blogroll, navigation, collapsing, collapsible
 
 Copyright 2007 Robert Felty
 
@@ -30,10 +30,9 @@ This file is part of Collapsing Links
 $url = get_settings('siteurl');
 if (!is_admin()) {
   add_action('wp_head', wp_enqueue_script('collapsFunctions',
-  "$url/wp-content/plugins/collapsing-links/collapsFunctions.js", '', '1.2'));
+  "$url/wp-content/plugins/collapsing-links/collapsFunctions.js", '', '1.4'));
   add_action('wp_head', wp_enqueue_script('scriptaculous-effects'));
   add_action( 'wp_head', array('collapsLink','get_head'));
-  add_action( 'wp_footer', array('collapsLink','get_foot'));
 }
 add_action('activate_collapsing-links/collapsLink.php', array('collapsLink','init'));
 add_action('admin_menu', array('collapsLink','setup'));
@@ -41,31 +40,17 @@ add_action('admin_menu', array('collapsLink','setup'));
 class collapsLink {
 
 	function init() {
-    $style="span.collapsLink {border:0;
-padding:0; 
-margin:0; 
-cursor:pointer;
-/* font-family: Monaco, 'Andale Mono', Courier, monospace;*/
-}
-
-#sidebar li.collapsLink:before {content:'';} 
-#sidebar li.collapsLink {list-style-type:none}
-#sidebar li.collapsLinkItem {
-       text-indent:-1em;
-       margin:0 0 0 1em;}
-li.widget.collapsLink ul {margin-left:.5em;}
-#sidebar li.collapsLinkItem:before {content: '\\\\00BB \\\\00A0' !important;} 
-#sidebar li.collapsLink .sym {
-   font-size:1.2em;
-   font-family:Monaco, 'Andale Mono', 'FreeMono', 'Courier new', 'Courier', monospace;
-    padding-right:5px;}";
+    include('collapsLinkStyles.php');
+    $defaultStyles=compact('selected','default','block','noArrows','custom');
     if( function_exists('add_option') ) {
       update_option( 'collapsLinkOrigStyle', $style);
+      update_option( 'collapsLinkDefaultStyles', $defaultStyles);
     }
     if (!get_option('collapsLinkStyle')) {
-      if( function_exists('add_option') ) {
-        add_option( 'collapsLinkStyle', $style);
-      }
+			add_option( 'collapsLinkStyle', $style);
+		}
+    if (!get_option('collapsLinkSidebarId')) {
+      add_option( 'collapsLinkSidebarId', 'sidebar');
     }
 	}
 
@@ -86,31 +71,14 @@ li.widget.collapsLink ul {margin-left:.5em;}
     $style
     </style>\n";
 	}
-  function get_foot() {
-		echo "<script type=\"text/javascript\">\n";
-		echo "// <![CDATA[\n";
-		echo "// These variables are part of the Collapsing Links Plugin version: 0.2.7\n// Copyright 2007 Robert Felty (robfelty.com)\n";
-    $expandSym="<img src='". get_settings('siteurl') .
-         "/wp-content/plugins/collapsing-links/" . 
-         "img/expand.gif' alt='expand' />";
-    $collapseSym="<img src='". get_settings('siteurl') .
-         "/wp-content/plugins/collapsing-links/" . 
-         "img/collapse.gif' alt='collapse' />";
-    echo "var expandSym=\"$expandSym\";";
-    echo "var collapseSym=\"$collapseSym\";";
-    echo"
-    addLoadEvent(function() {
-      autoExpandCollapse('collapsLink');
-    });
-    ";
-		echo "// ]]>\n</script>\n";
-  }
 }
 
 
-		include( 'collapsLinkList.php' );
-function collapsLink($number) {
-	list_links($number);
+function collapsLink($args='') {
+  include_once( 'collapsLinkList.php' );
+  if (!is_admin()) {
+    list_links($args);
+  }
 }
 include('collapsLinkWidget.php');
 ?>

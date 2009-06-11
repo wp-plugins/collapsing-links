@@ -1,6 +1,6 @@
 <?php
 /*
-Collapsing Links version: 0.2.7
+Collapsing Links version: 1.2.beta
 Copyright 2007 Robert Felty
 
 This work is largely based on the Fancy Links plugin by Andrew Rader
@@ -27,42 +27,126 @@ This file is part of Collapsing Links
 
 check_admin_referer();
 
-if (isset($_POST['infoUpdate'])) {
+$options=get_option('collapsLinkOptions');
+$widgetOn=0;
+$number='%i%';
+if (empty($options)) {
+  $number = '-1';
+} elseif (!isset($options['%i%']['title']) || 
+    count($options) > 1) {
+  $widgetOn=1; 
+}
+
+if( isset($_POST['resetOptions']) ) {
+  if (isset($_POST['reset'])) {
+    delete_option('collapsLinkOptions');   
+		$widgetOn=0;
+    $number = '-1';
+  }
+} elseif (isset($_POST['infoUpdate'])) {
   $style=$_POST['collapsLinkStyle'];
+  $defaultStyles=get_option('collapsLinkDefaultStyles');
+  $selectedStyle=$_POST['collapsLinkSelectedStyle'];
+  $defaultStyles['selected']=$selectedStyle;
+  $defaultStyles['custom']=$_POST['collapsLinkStyle'];
+
   update_option('collapsLinkStyle', $style);
+  update_option('collapsLinkSidebarId', $_POST['collapsLinkSidebarId']);
+  update_option('collapsLinkDefaultStyles', $defaultStyles);
+
   if ($widgetOn==0) {
-		include('updateOptions.php');
+    include('updateOptions.php');
   }
 }
-//include('processOptions.php');
+include('processOptions.php');
 ?>
 <div class=wrap>
  <form method="post">
-  <h2>Collapsing Links Options</h2>
+  <h2><? _e('Collapsing Links Options', 'collapsLink'); ?></h2>
   <fieldset name="Collapsing Links Options">
-   <legend><?php _e('Display Options:'); ?></legend>
-   <ul style="list-style-type: none;">
     <p>
-  <input type='hidden' id='collapsLinkOrigStyle' value="<?php echo
-stripslashes(get_option('collapsLinkOrigStyle')) ?>" />
-<label for="collapsLinkStyle">Style info:</label>
-   <input type='button' value='restore original style'
+ <?php _e('Id of the sidebar where collapsing links appears:', 'collapsing-links'); ?>
+   <input id='collapsLinkSidebarId' name='collapsLinkSidebarId' type='text' size='20' value="<?php echo
+   get_option('collapsLinkSidebarId')?>" onchange='changeStyle("collapsLinkStylePreview","collapsLinkStyle", "collapsLinkDefaultStyles", "collapsLinkSelectedStyle", false);' />
+   <table>
+     <tr>
+       <td>
+  <input type='hidden' id='collapsLinkCurrentStyle' value="<?php echo
+stripslashes(get_option('collapsLinkStyle')) ?>" />
+  <input type='hidden' id='collapsLinkSelectedStyle'
+  name='collapsLinkSelectedStyle' />
+<label for="collapsLinkStyle"><?php _e('Select style:', 'collapsing-links'); ?></label>
+       </td>
+       <td>
+       <select name='collapsLinkDefaultStyles' id='collapsLinkDefaultStyles'
+         onchange='changeStyle("collapsLinkStylePreview","collapsLinkStyle", "collapsLinkDefaultStyles", "collapsLinkSelectedStyle", false);' />
+       <?php
+    $url = get_settings('siteurl') . '/wp-content/plugins/collapsing-links';
+       $styleOptions=get_option('collapsLinkDefaultStyles');
+       //print_r($styleOptions);
+       $selected=$styleOptions['selected'];
+       foreach ($styleOptions as $key=>$value) {
+         if ($key!='selected') {
+           if ($key==$selected) {
+             $select=' selected=selected ';
+           } else {
+             $select=' ';
+           }
+           echo '<option' .  $select . 'value="'.
+               stripslashes($value) . '" >'.$key . '</option>';
+         }
+       }
+       ?>
+       </select>
+       </td>
+       <td><?php _e('Preview', 'collapsing-links'); ?><br />
+       <img style='border:1px solid' id='collapsLinkStylePreview' alt='preview'/>
+       </td>
+    </tr>
+    </table>
+    <?php _e('You may also customize your style below if you wish', 'collapsing-links'); ?><br />
+   <input type='button' value='<?php _e("restore current style", "collapsing-links"); ?>'
 onclick='restoreStyle();' /><br />
-   <textarea cols='78' rows='10' id="collapsLinkStyle" name="collapsLinkStyle">
-    <?php echo stripslashes(get_option('collapsLinkStyle')) ?>
-   </textarea>
+   <textarea onchange='changeStyle("collapsLinkStylePreview","collapsLinkStyle", "collapsLinkDefaultStyles", "collapsLinkSelectedStyle", true);' cols='78' rows='10' id="collapsLinkStyle"name="collapsLinkStyle"><?php echo stripslashes(get_option('collapsLinkStyle'))?></textarea>
     </p>
 <script type='text/javascript'>
-function restoreStyle() {
-  var defaultStyle = document.getElementById('collapsLinkOrigStyle').value;
-  var catStyle = document.getElementById('collapsLinkStyle');
-  catStyle.value=defaultStyle;
+
+function changeStyle(preview,template,select,selected,custom) {
+  var preview = document.getElementById(preview);
+  var linkstyles = document.getElementById(select);
+  var selectedStyle;
+  var hiddenStyle=document.getElementById(selected);
+  var linkstyle = document.getElementById(template);
+  if (custom==true) {
+    selectedStyle=linkstyles.options[linkstyles.options.length-1];
+    selectedStyle.value=linkstyle.value;
+    selectedStyle.selected=true;
+  } else {
+    for(i=0; i<linkstyles.options.length; i++) {
+      if (linkstyles.options[i].selected == true) {
+        selectedStyle=linkstyles.options[i];
+      }
+    }
+  }
+  hiddenStyle.value=selectedStyle.innerHTML
+  preview.src='<?php echo $url ?>/img/'+selectedStyle.innerHTML+'.png';
+  var sidebarId=document.getElementById('collapsLinkSidebarId').value;
+
+  var theStyle = selectedStyle.value.replace(/#[a-zA-Z]+\s/g, '#'+sidebarId + ' ');
+  linkstyle.value=theStyle
 }
+
+function restoreStyle() {
+  var defaultStyle = document.getElementById('collapsLinkCurrentStyle').value;
+  var linkstyle = document.getElementById('collapsLinkStyle');
+  linkstyle.value=defaultStyle;
+}
+  changeStyle('collapsLinkStylePreview','collapsLinkStyle', 'collapsLinkDefaultStyles', 'collapsLinkSelectedStyle', false);
+
 </script>
-   </ul>
   </fieldset>
   <div class="submit">
-   <input type="submit" name="infoUpdate" value="<?php _e('Update options', 'Collapsing Links'); ?> &raquo;" />
+   <input type="submit" name="infoUpdate" value="<?php _e('Update options', 'collapsLink'); ?> &raquo;" />
   </div>
  </form>
 </div>
