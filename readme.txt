@@ -5,7 +5,7 @@ Plugin URI: http://blog.robfelty.com/plugins/collapsing-links
 Tags: links, sidebar, widget
 Requires at least: 2.8
 Tested up to: 2.8
-Stable tag: 0.3.beta
+Stable tag: 0.3.1
 
 This widget uses Javascript to dynamically expand or collapsable the set of
 links for each link category.
@@ -20,11 +20,20 @@ You can use multiple instances of the widget, each with its own set of options. 
 
 It is based off of the Collapsing Categories and Collapsing Pages plugins.
 
-= What's new in 0.3.alpha? =
-* Widget is compatible with wordpress 2.8 (not backwards compatible with 2.7
-  and previous)
-* Can now add parameters to the collapsLink function if you choose not to use
-  the widget (see options section below)
+= What's new? =
+* 0.3.1 (2009.06.22)
+  * Fixed problems with page load and cookies
+
+* 0.3.beta (2009.06.10)
+  * Added style templates
+  * Cleaned up code
+  * using collapsFunctions.js version 1.4
+
+* 0.3.alpha (2009.04.22)
+    * Widget is compatible with wordpress 2.8 (not backwards compatible with 2.7
+      and previous)
+    * Can now add parameters to the collapsLink function if you choose not to
+      use the widget (see options section below)
 
 == Installation ==
 
@@ -185,6 +194,14 @@ database, which includes both visible and invisible links. If you have
 invisible links, this number will be wrong.
 
 == HISTORY ==
+
+* 0.3.1 (2009.06.22)
+  * Fixed problems with page load and cookies
+
+* 0.3.beta (2009.06.10)
+  * Added style templates
+  * Cleaned up code
+  * using collapsFunctions.js version 1.4
 
 * 0.3.alpha (2009.04.22)
   * Widget is compatible with wordpress 2.8 (not backwards compatible with 2.7
