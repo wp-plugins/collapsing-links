@@ -1,6 +1,6 @@
 <?php
 /*
-Collapsing Links version: 0.3.1
+Collapsing Links version: 0.3.2
 Copyright 2007 Robert Felty
 
 This work is largely based on the Collapsing Links plugin by Andrew Rader
@@ -224,7 +224,7 @@ function list_links($args='') {
 		echo "<script type=\"text/javascript\">\n";
 		echo "// <![CDATA[\n";
     echo '/* These variables are part of the Collapsing Links Plugin 
-*  Version: 0.3.1
+*  Version: 0.3.2
 *  $Id$
 * Copyright 2007-2009 Robert Felty (robfelty.com)
 */' . "\n";
