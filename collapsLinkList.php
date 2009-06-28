@@ -223,14 +223,17 @@ function list_links($args='') {
 }
 		echo "<script type=\"text/javascript\">\n";
 		echo "// <![CDATA[\n";
-		echo "// These variables are part of the Collapsing Links Plugin version: 0.3.alpha\n// Copyright 2007 Robert Felty (robfelty.com)\n";
-    echo '//revision: $Id:';
+    echo '/* These variables are part of the Collapsing Links Plugin 
+*  Version: 0.3.1
+*  $Id$
+* Copyright 2007-2009 Robert Felty (robfelty.com)
+*/' . "\n";
     $expandSym="<img src='". get_settings('siteurl') .
          "/wp-content/plugins/collapsing-links/" . 
-         "img/expand.gif' alt='expand' />";
+         "img/expand.gif' alt='expand' />\n";
     $collapseSym="<img src='". get_settings('siteurl') .
          "/wp-content/plugins/collapsing-links/" . 
-         "img/collapse.gif' alt='collapse' />";
+         "img/collapse.gif' alt='collapse' />\n";
     echo "var expandSym=\"$expandSym\";\n";
     echo "var collapseSym=\"$collapseSym\";\n";
     echo"
