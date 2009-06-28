@@ -61,9 +61,8 @@ $this->get_field_id('expand0') ?>" value='3'></input>
    <input type="checkbox" name="<?php echo $this->get_field_name('animate'); ?>" <?php if ($animate==1) echo
    'checked'; ?> id="<?php echo $this->get_field_id('animate') ?>"></input> <label
    for="<?php echo $this->get_field_id('animate'); ?>">Animate collapsing and expanding</label>
-   <input type="checkbox" name="collapsLink[<?php echo $number
-   ?>][nofollow]" <?php if ($nofollow==1) echo
-   'checked'; ?> id="<?php echo $this->get_field_id('nofollow') ?>"></input> <label
+   <input type="checkbox" name="<?php echo $this->get_field_name('nofollow'); ?>" 
+   <?php if ($nofollow) echo 'checked'; ?> id="<?php echo $this->get_field_id('nofollow') ?>"></input> <label
    for="<?php echo $this->get_field_id('nofollow'); ?>">add nofollow to links </label>
    </p>
      <input type="checkbox" name="<?php echo $this->get_field_name('debug'); ?>"

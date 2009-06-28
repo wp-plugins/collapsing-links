@@ -230,10 +230,10 @@ function list_links($args='') {
 */' . "\n";
     $expandSym="<img src='". get_settings('siteurl') .
          "/wp-content/plugins/collapsing-links/" . 
-         "img/expand.gif' alt='expand' />\n";
+         "img/expand.gif' alt='expand' />";
     $collapseSym="<img src='". get_settings('siteurl') .
          "/wp-content/plugins/collapsing-links/" . 
-         "img/collapse.gif' alt='collapse' />\n";
+         "img/collapse.gif' alt='collapse' />";
     echo "var expandSym=\"$expandSym\";\n";
     echo "var collapseSym=\"$collapseSym\";\n";
     echo"

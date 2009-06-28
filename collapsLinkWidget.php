@@ -2,7 +2,12 @@
 class collapsLinkWidget extends WP_Widget {
   function collapsLinkWidget() {
     $widget_ops = array('classname' => 'widget_collapslink', 'description' => 'A list with your feeds links' );
-    $this->WP_Widget('collapslink', 'Collapsing Links', $widget_ops);
+		$control_ops = array (
+			'width' => '450', 
+			'height' => '400'
+			);
+    $this->WP_Widget('collapslink', 'Collapsing Links', $widget_ops,
+        $control_ops);
   }
  
   function widget($args, $instance) {

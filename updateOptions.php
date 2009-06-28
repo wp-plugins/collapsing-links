@@ -51,9 +51,9 @@
       if( isset($new_instance['animate'])) {
         $animate= 1 ;
       }
-      $nofollow=1;
+      $nofollow=true;
       if( !isset($new_instance['nofollow'])) {
-        $nofollow= 0 ;
+        $nofollow= false ;
       }
       $debug=0;
       if (isset($new_instance['debug'])) {

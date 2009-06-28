@@ -1,4 +1,8 @@
 Collapsing Links Changelog
+* 0.3.2 (2009.06.28)
+  * Fixed nofollow option
+  * Fixed problem when using images for symbols
+
 * 0.3.1 (2009.06.22)
   * Fixed problems with page load and cookies
 

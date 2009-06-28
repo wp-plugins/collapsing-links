@@ -21,6 +21,10 @@ You can use multiple instances of the widget, each with its own set of options. 
 It is based off of the Collapsing Categories and Collapsing Pages plugins.
 
 = What's new? =
+* 0.3.2 (2009.06.28)
+  * Fixed nofollow option
+  * Fixed problem when using images for symbols
+
 * 0.3.1 (2009.06.22)
   * Fixed problems with page load and cookies
 
@@ -194,6 +198,10 @@ database, which includes both visible and invisible links. If you have
 invisible links, this number will be wrong.
 
 == HISTORY ==
+
+* 0.3.2 (2009.06.28)
+  * Fixed nofollow option
+  * Fixed problem when using images for symbols
 
 * 0.3.1 (2009.06.22)
   * Fixed problems with page load and cookies
