@@ -10,16 +10,16 @@
       if($new_instance['catSortOrder'] == 'DESC') {
         $catSortOrder= 'DESC' ;
       }
-      if($new_instance['catSort'] == 'linkName') {
-        $catSort= 'linkName' ;
-      } elseif ($new_instance['catSort'] == 'linkId') {
-        $catSort= 'linkId' ;
-      } elseif ($new_instance['catSort'] == 'linkSlug') {
-        $catSort= 'linkSlug' ;
-      } elseif ($new_instance['catSort'] == 'linkOrder') {
-        $catSort= 'linkOrder' ;
-      } elseif ($new_instance['catSort'] == 'linkCount') {
-        $catSort= 'linkCount' ;
+      if($new_instance['catSort'] == 'catName') {
+        $catSort= 'catName' ;
+      } elseif ($new_instance['catSort'] == 'catId') {
+        $catSort= 'catId' ;
+      } elseif ($new_instance['catSort'] == 'catSlug') {
+        $catSort= 'catSlug' ;
+      } elseif ($new_instance['catSort'] == 'catOrder') {
+        $catSort= 'catOrder' ;
+      } elseif ($new_instance['catSort'] == 'catCount') {
+        $catSort= 'catCount' ;
       } elseif ($new_instance['catSort'] == '') {
         $catSort= '' ;
         $catSortOrder= '' ;
