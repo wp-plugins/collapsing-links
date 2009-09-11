@@ -56,7 +56,7 @@ class collapsLink {
 
 	function setup() {
 		if( function_exists('add_options_page') &&
-        current_user_can('manage_options') {
+        current_user_can('manage_options') ) {
 			add_options_page(__('Collapsing Links'),__('Collapsing
       Links'),1,basename(__FILE__),array('collapsLink','ui'));
 		}
