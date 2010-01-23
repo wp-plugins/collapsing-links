@@ -1,4 +1,4 @@
-/*  Collapse Functions, version 1.5
+/*  Collapse Functions, version 1.6
  *
  *--------------------------------------------------------------------------*/
 String.prototype.trim = function() {
@@ -55,9 +55,10 @@ function autoExpandCollapse(collapsClass) {
   var show = collapsClass + ' ' + 'expand'
   for (var cookieIndex=0; cookieIndex<cookies.length; cookieIndex++) {
     var cookieparts= cookies[cookieIndex].split('=');
+    
     var cookiename=cookieparts[0].trim();
-    var cookievalue=cookieparts[1].trim();
     if (cookiename.match(cookiePattern)) {
+      var cookievalue=cookieparts[1].trim();
       var expand= document.getElementById(cookiename);
       if (expand) {
         var thisli = expand.parentNode;
@@ -70,6 +71,7 @@ function autoExpandCollapse(collapsClass) {
                 var theOnclick=theSpan.onclick+"";
                 var matches=theOnclick.match(/.*\(event, ?"([^"]*)", ?"([^"]*)".*\)/);
                 var expand=matches[1].replace(/\\u25BA/, '\u25BA');
+                expand=expand.replace(/\\u25B6/, '\u25B6');
                 var collapse=matches[2].replace(/\\u25BC/, '\u25BC');
                 collapse=collapse.replace(/\\u2014/, '\u2014');
                 expandCollapse(theSpan,expand,collapse,0,collapsClass);
@@ -139,7 +141,8 @@ function expandCollapse( e, expand,collapse, animate, collapsClass ) {
     src.setAttribute('title','click to expand');
     theSpan.innerHTML=expand;
     if (animate==1) {
-      Effect.BlindUp(childList, {duration: 0.5});
+      //Effect.BlindUp(childList, {duration: 0.5});
+      jQuery(childList).hide('blind', '', 500);
     } else {
       childList.style.display = 'none';
     }
@@ -149,7 +152,8 @@ function expandCollapse( e, expand,collapse, animate, collapsClass ) {
     src.setAttribute('title','click to collapse');
     theSpan.innerHTML=collapse;
     if (animate==1) {
-      Effect.BlindDown(childList, {duration: 0.5});
+      //Effect.BlindDown(childList, {duration: 0.5});
+      jQuery(childList).show('blind', '', 500);
     } else {
       childList.style.display = 'block';
     }

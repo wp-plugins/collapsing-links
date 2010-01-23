@@ -4,7 +4,7 @@ Donate link: http://blog.robfelty.com/plugins/collapsing-links
 Plugin URI: http://blog.robfelty.com/plugins/collapsing-links
 Tags: links, sidebar, widget
 Requires at least: 2.8
-Tested up to: 2.8
+Tested up to: 2.9.1
 Stable tag: 0.3.2
 
 This widget uses Javascript to dynamically expand or collapsable the set of
@@ -197,74 +197,78 @@ The option to show the number of links currently uses the number stored in the
 database, which includes both visible and invisible links. If you have
 invisible links, this number will be wrong.
 
-== HISTORY ==
+== CHANGELOG ==
 
-* 0.3.2 (2009.06.28)
+= 0.3.3 (2010.01.xx) = 
+  * Switched from scriptaculous to jquery. No longer conflicts with plugins
+    which use mootools (e.g. featured content gallery)
+
+= 0.3.2 (2009.06.28) =
   * Fixed nofollow option
   * Fixed problem when using images for symbols
 
-* 0.3.1 (2009.06.22)
+= 0.3.1 (2009.06.22) =
   * Fixed problems with page load and cookies
 
-* 0.3.beta (2009.06.10)
+= 0.3.beta (2009.06.10) =
   * Added style templates
   * Cleaned up code
   * using collapsFunctions.js version 1.4
 
-* 0.3.alpha (2009.04.22)
+= 0.3.alpha (2009.04.22) =
   * Widget is compatible with wordpress 2.8 (not backwards compatible with 2.7
     and previous)
   * Can now add parameters to the collapsLink function if you choose not to use
     the widget
 
-* 0.2.6 (2009.04.16)
+= 0.2.6 (2009.04.16) =
     * Added option to use custom symbols
 
-* 0.2.5 (2009.02.01)
+= 0.2.5 (2009.02.01) =
     * Fixed settings panel
 
-* 0.2.4: (2009.01.07)
+= 0.2.4: (2009.01.07) =
     * Added nofollow option
     * Added version to javascript
     * not loading unnecessary code for admin pages (fixes interference with
       akismet stats page
     * fixed debugging option
 
-* 0.2.3: (2009.01.06)
+= 0.2.3: (2009.01.06) =
     * Finally fixed disappearing widget problem when trying to add to sidebar
     * Added debugging option to show the query used and the output
     * Moved style option to options page
     * tweaked default style
 
-* 0.2.2: (2009.01.03)
+= 0.2.2: (2009.01.03) =
   * Added title attributes so that "click to expand" shows on hover.
   * Now the collapse symbol and collapse text are clickable
 
-* 0.2.1: (2009.01.02)
+= 0.2.1: (2009.01.02) =
   * Fixed bug with not enqueing javascript file
 	* Added feature such that link descriptions are added to the title attribute
 	  (will show up on hover) 
 
-* 0.2: (2008.12.08)
+= 0.2: (2008.12.08) =
   * Can now use as a widget or manually
   * consolidated javascript to work with other collapsing plugins
   * Uses cookies to keep track of which link categories have been expanded /
     collapsed
 
-* 0.1.4: (2008.10.29)
+= 0.1.4: (2008.10.29) =
   * Fixed bug so that multi-word categories are correctly included / excluded
 
 
-* 0.1.3: (2008.10.29)
+= 0.1.3: (2008.10.29) =
   * Now opens links in specified target (blank,top,none)
 
-* 0.1.2: (2008.10.06)
+= 0.1.2: (2008.10.06) =
   * Fixed bug with leaving include/exclude categories blank
   * Added option to animate expanding and collapsing
   * Added option for images instead of text as collapsing symbols
 
-* 0.1.1:
+= 0.1.1: =
   * Changing default title to 'Blogroll'
 
-* 0.1:
+= 0.1: =
 	Initial Release

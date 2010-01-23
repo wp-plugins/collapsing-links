@@ -8,7 +8,7 @@ Version: 0.3.2
 Author URI: http://robfelty.com
 Tags: sidebar, widget, links, blogroll, navigation, collapsing, collapsible
 
-Copyright 2007 Robert Felty
+Copyright 2007-2010 Robert Felty
 
 This file is part of Collapsing Links
 
@@ -29,9 +29,9 @@ This file is part of Collapsing Links
 
 $url = get_settings('siteurl');
 if (!is_admin()) {
+  add_action('wp_head', wp_enqueue_script('jquery'));
   add_action('wp_head', wp_enqueue_script('collapsFunctions',
-  "$url/wp-content/plugins/collapsing-links/collapsFunctions.js", '', '1.5'));
-  add_action('wp_head', wp_enqueue_script('scriptaculous-effects'));
+  "$url/wp-content/plugins/collapsing-links/collapsFunctions.js", '', '1.6'));
   add_action( 'wp_head', array('collapsLink','get_head'));
 }
 add_action('activate_collapsing-links/collapsLink.php', array('collapsLink','init'));
