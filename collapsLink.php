@@ -4,7 +4,7 @@ Plugin Name: Collapsing Links
 Plugin URI: http://blog.robfelty.com/plugins/collapsing-links
 Description: Uses javascript to expand and collapse links to show the posts that belong to the link category 
 Author: Robert Felty
-Version: 0.3.2
+Version: 0.3.3
 Author URI: http://robfelty.com
 Tags: sidebar, widget, links, blogroll, navigation, collapsing, collapsible
 
@@ -28,19 +28,34 @@ This file is part of Collapsing Links
 */ 
 
 $url = get_settings('siteurl');
+global $collapsLinkVersion;
+$collapsLinkVersion = '0.3.3';
 if (!is_admin()) {
   add_action('wp_head', wp_enqueue_script('jquery'));
   add_action('wp_head', wp_enqueue_script('collapsFunctions',
   "$url/wp-content/plugins/collapsing-links/collapsFunctions.js", '', '1.6'));
   add_action( 'wp_head', array('collapsLink','get_head'));
+} else {
+  // call upgrade function if current version is lower than actual version
+  $dbversion = get_option('collapsLinkVersion');
+  if (!$dbversion || $collapsLinkVersion != $dbversion)
+    collapsLink::init();
 }
-add_action('activate_collapsing-links/collapsLink.php', array('collapsLink','init'));
 add_action('admin_menu', array('collapsLink','setup'));
+register_activation_hook(__FILE__, array('collapsLink','init'));
 
 class collapsLink {
 
 	function init() {
+    global $collapsLinkVersion;
     include('collapsLinkStyles.php');
+		$defaultStyles=compact('selected','default','block','noArrows','custom');
+    $dbversion = get_option('collapsLinkVersion');
+    if ($collapsLinkVersion != $dbversion && $selected!='custom') {
+      $style = $defaultStyles[$selected];
+      update_option( 'collapsLinkStyle', $style);
+      update_option( 'collapsLinkVersion', $collapsLinkVersion);
+    }
     $defaultStyles=compact('selected','default','block','noArrows','custom');
     if( function_exists('add_option') ) {
       update_option( 'collapsLinkOrigStyle', $style);
@@ -52,6 +67,9 @@ class collapsLink {
     if (!get_option('collapsLinkSidebarId')) {
       add_option( 'collapsLinkSidebarId', 'sidebar');
     }
+    if (!get_option('collapsLinkVersion')) {
+      add_option( 'collapsLinkVersion', $collapsLinkVersion);
+		}
 	}
 
 	function setup() {

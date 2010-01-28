@@ -1,6 +1,6 @@
 <?php
 /*
-Collapsing Links version: 0.3.2
+Collapsing Links version: 0.3.3
 Copyright 2007 Robert Felty
 
 This work is largely based on the Fancy Links plugin by Andrew Rader
@@ -130,7 +130,11 @@ function changeStyle(preview,template,select,selected,custom) {
   }
   hiddenStyle.value=selectedStyle.innerHTML
   preview.src='<?php echo $url ?>/img/'+selectedStyle.innerHTML+'.png';
-  var sidebarId=document.getElementById('collapsLinkSidebarId').value;
+  if (sidebarId!='') {
+    var theStyle = selectedStyle.value.replace(/#[a-zA-Z]+\s/g, '#'+sidebarId + ' ');
+  } else {
+    var theStyle = selectedStyle.value.replace(/#[a-zA-Z]+\s/g, '');
+  }
 
   var theStyle = selectedStyle.value.replace(/#[a-zA-Z]+\s/g, '#'+sidebarId + ' ');
   linkstyle.value=theStyle
