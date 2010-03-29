@@ -205,11 +205,18 @@ function list_links($args='') {
 						}
             $rel=$link->link_rel;
             if ($nofollow==1) {
-              $rel.= ' nofollow';
+              if ($rel!='') {
+                $rel=trim($rel);
+                $rel.=' ';
+              }
+              $rel.= 'nofollow';
             }
+            $target = $link->link_target;
+            if ( '' != $target )
+              $target = ' target="' . $target . '"';
             echo "          <li class='collapsLinkItem'><a href='".
-                $link->link_url."' title=\"$linkTitle\" target='" .
-								$link->link_target . "' rel=\"$rel\" >" .
+                $link->link_url."' title=\"$linkTitle\" $target" .
+								" rel=\"$rel\" >" .
                 strip_tags($link->link_name) . "</a></li>\n";
           }
         }

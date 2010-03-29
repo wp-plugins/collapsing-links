@@ -4,7 +4,7 @@ Donate link: http://blog.robfelty.com/plugins/collapsing-links
 Plugin URI: http://blog.robfelty.com/plugins/collapsing-links
 Tags: links, sidebar, widget
 Requires at least: 2.8
-Tested up to: 2.8
+Tested up to: 3.0.alpha
 Stable tag: 0.3.2
 
 This widget uses Javascript to dynamically expand or collapsable the set of
@@ -197,10 +197,15 @@ The option to show the number of links currently uses the number stored in the
 database, which includes both visible and invisible links. If you have
 invisible links, this number will be wrong.
 
-== HISTORY ==
+== CHANGELOG ==
+= 0.3.4 (2010.xx.xx) =
+* Fixed html validation when target is blank (thanks http://dropdeaddick.com)
 
-=  0.3.3 (2009.09.xx) =
+= 0.3.3 (2010.01.28) = 
+  * Switched from scriptaculous to jquery. No longer conflicts with plugins
+    which use mootools (e.g. featured content gallery)
     * Restricted settings page to authorized users
+
 
 =  0.3.2 (2009.06.28) =
   * Fixed nofollow option
