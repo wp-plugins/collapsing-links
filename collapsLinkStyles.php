@@ -1,4 +1,4 @@
-    <?php
+<?php
 $style="#sidebar span.collapsLink {
         border:0;
         padding:0; 
