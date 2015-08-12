@@ -1,6 +1,6 @@
 <?php 
 class collapsLinkWidget extends WP_Widget {
-  function collapsLinkWidget() {
+  function __construct() {
     $widget_ops = array('classname' => 'widget_collapslink', 'description' => 'A list with your feeds links' );
 		$control_ops = array (
 			'width' => '450', 
